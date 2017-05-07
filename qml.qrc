@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>textedit.qml</file>
         <file>create_text_edit.js</file>
+        <file>NotePage.qml</file>
     </qresource>
 </RCC>

@@ -1,9 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.0
-
-//This can be replaced after the UI prototyping is complete
-import "create_text_edit.js" as TEFactory
+import QtQuick.Layouts 1.3
 
 ApplicationWindow {
     visible: true
@@ -12,37 +9,30 @@ ApplicationWindow {
     title: qsTr("StaunchNotes")
     id: root
 
-    header: ToolBar {
-        /*RowLayout {
-            anchors.fill: parent
-            ToolButton {
-
-            }
-            Label {
-
-            }
-            ToolButton {
-
-            }
-        }*/
-    }
-
-    Flickable {
+    RowLayout {
+        id: layout
+        spacing: 0
         anchors.fill: parent
-        id: centralSurface
-        contentWidth: Math.max(contentItem.childrenRect.width, implicitWidth)
-        contentHeight: Math.max(contentItem.childrenRect.height, implicitHeight)
-        implicitHeight: 640
-        implicitWidth: 800
 
-        MouseArea {
-            anchors.fill: parent
-            id: inputArea
-            onClicked: TEFactory.createTextEdit(mouse, centralSurface.contentItem)
-            z: -1
+        ListView {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            Layout.minimumWidth: 50
+            Layout.preferredWidth: parent.height / 3
+            Layout.maximumWidth: 300
+            Layout.minimumHeight: 150
+            layoutDirection: Qt.Vertical
+            model: null/*ContactModel {}
+                delegate: Text {
+                    text: name + ": " + number
+                }*/
         }
-
-        ScrollBar.horizontal: ScrollBar {}
-        ScrollBar.vertical: ScrollBar{}
+        NotePage {
+            focus: true
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.minimumWidth: 100
+            Layout.preferredWidth: (parent.width / 3) * 2
+        }
     }
 }
