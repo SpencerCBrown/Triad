@@ -2,8 +2,8 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>textedit.qml</file>
-        <file>create_text_edit.js</file>
         <file>NotePage.qml</file>
-        <file>manipulate.js</file>
+        <file>utils/create_text_edit.js</file>
+        <file>utils/manipulate.js</file>
     </qresource>
 </RCC>
