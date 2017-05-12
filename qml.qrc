@@ -4,5 +4,6 @@
         <file>textedit.qml</file>
         <file>create_text_edit.js</file>
         <file>NotePage.qml</file>
+        <file>manipulate.js</file>
     </qresource>
 </RCC>
