@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>gui/main.qml</file>
+        <file>gui/textedit.qml</file>
+        <file>gui/NotePage.qml</file>
+        <file>gui/create_text_edit.js</file>
+        <file>gui/manipulate.js</file>
+    </qresource>
+</RCC>
