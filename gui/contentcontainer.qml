@@ -10,7 +10,7 @@ FocusScope {
     height: borderControl.height
     property bool isImplicitlySized: true
     property alias content: textArea
-    property var containingPage
+    signal changedSelectedContainer(real xpos, real ypos)
 
     Rectangle {
         id: borderControl
@@ -52,7 +52,7 @@ FocusScope {
         anchors.fill: parent
         onClicked: {
             rootScope.focus = true
-            containingPage.activeContentContainer = rootScope
+            rootScope.changedSelectedContainer(rootScope.x, rootScope.y)
         }
     }
 }
