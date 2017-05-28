@@ -12,6 +12,10 @@ FocusScope {
     property alias content: textArea
     signal changedSelectedContainer(real xpos, real ypos)
 
+    Drag.active: dragArea.drag.active
+    Drag.hotSpot.x: 10
+    Drag.hotSpot.y: 10
+
     Rectangle {
         id: borderControl
         color: "transparent"
@@ -49,7 +53,9 @@ FocusScope {
         }
     }
     MouseArea {
+        id: dragArea
         anchors.fill: parent
+        drag.target: parent
         onClicked: {
             rootScope.focus = true
             rootScope.changedSelectedContainer(rootScope.x, rootScope.y)

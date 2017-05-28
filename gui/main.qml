@@ -22,10 +22,6 @@ ApplicationWindow {
             Layout.maximumWidth: 300
             Layout.minimumHeight: 150
             layoutDirection: Qt.Vertical
-            model: null/*ContactModel {}
-                delegate: Text {
-                    text: name + ": " + number
-                }*/
         }
         NotePage {
             focus: true
