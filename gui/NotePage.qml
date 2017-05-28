@@ -13,6 +13,7 @@ Page {
 
         ToolButton {
             id: boldButton
+            text: "\uE800"
             onClicked: MEObject.boldSelectedText(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y))
         }
     }
