@@ -5,5 +5,7 @@
         <file>gui/NotePage.qml</file>
         <file>gui/create_text_edit.js</file>
         <file>gui/manipulate.js</file>
+        <file>fonts/fontello.ttf</file>
+        <file>gui/NoteBrowser.qml</file>
     </qresource>
 </RCC>
