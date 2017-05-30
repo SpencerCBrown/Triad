@@ -13,8 +13,7 @@ Page {
 
         ToolButton {
             id: boldButton
-            font.family: "fontello"
-            text: "\uE800"
+            text: "bold"
             onClicked: MEObject.boldSelectedText(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y))
         }
     }

@@ -11,9 +11,9 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/gui/main.qml")));
 
-    QFontDatabase fontDatabase;
-    if (fontDatabase.addApplicationFont(":/fonts/fontello.ttf") == -1)
-        qWarning() << "Failed to load fontello.ttf";
+    /*QFontDatabase fontDatabase;
+    if (fontDatabase.addApplicationFont("qrc:/fonts/fontello.ttf") == -1)
+        qWarning() << "Failed to load fontello.ttf";*/
 
     return app.exec();
 }
