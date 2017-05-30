@@ -14,15 +14,15 @@ ApplicationWindow {
         spacing: 0
         anchors.fill: parent
 
-        ListView {
+        NoteBrowser {
             Layout.fillHeight: true
             Layout.fillWidth: true
             Layout.minimumWidth: 50
             Layout.preferredWidth: parent.height / 3
             Layout.maximumWidth: 300
             Layout.minimumHeight: 150
-            layoutDirection: Qt.Vertical
         }
+
         NotePage {
             focus: true
             Layout.fillWidth: true
