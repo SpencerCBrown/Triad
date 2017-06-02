@@ -11,10 +11,20 @@ Page {
     header: ToolBar {
         id: toolbar
 
-        ToolButton {
-            id: boldButton
-            text: "bold"
-            onClicked: MEObject.boldSelectedText(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y))
+        Row {
+            ToolButton {
+                id: boldButton
+                text: "\uE800"
+                font.family: "fontello"
+                onClicked: MEObject.boldSelectedText(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y));
+            }
+
+            ToolButton {
+                id: italicButton
+                text: "\uE801"
+                font.family: "fontello"
+                onClicked: MEObject.italicizeSelectedText(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y));
+            }
         }
     }
 
