@@ -3,7 +3,8 @@ QT += qml quick qml
 CONFIG += c++11
 
 SOURCES += src/main.cpp \
-    src/notemodel.cpp
+    src/notemodel.cpp \
+    documenthandler.cpp
 
 RESOURCES += qml.qrc
 
@@ -21,4 +22,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    src/notemodel.h
+    src/notemodel.h \
+    documenthandler.h

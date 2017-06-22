@@ -1,5 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.1
+import net.warpmail.spencerb 1.0
 
 FocusScope {
     id: rootScope
@@ -15,6 +16,10 @@ FocusScope {
     Drag.active: dragArea.drag.active
     Drag.hotSpot.x: 10
     Drag.hotSpot.y: 10
+
+    DocumentHandler {
+        textDocument: textArea.textDocument
+    }
 
     Rectangle {
         id: borderControl
