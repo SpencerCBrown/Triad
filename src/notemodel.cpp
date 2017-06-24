@@ -1,4 +1,4 @@
-#include "notemodel.h"
+#include "includes/notemodel.h"
 
 NoteModel::NoteModel()
 {

@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.1
+import net.spencer.storage 1.0
 
 import "create_text_edit.js" as TEFactory
 import "manipulate.js" as MEObject
@@ -28,10 +29,6 @@ Page {
         }
     }
 
-    function changeSelectedOrigin(xpos, ypos) {
-        selectedContainerOrigin = Qt.point(xpos, ypos);
-    }
-
     Flickable {
         id: centralSurface
         anchors.fill: parent
@@ -41,7 +38,7 @@ Page {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, root, selectedContainerOrigin);
+                var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, root, selectedContainerOrigin, access.createNode());
                 selectedContainerOrigin = Qt.point(contentContainer.x, contentContainer.y);
                 contentContainer.changedSelectedContainer.connect(changeSelectedOrigin);
             }
@@ -51,5 +48,16 @@ Page {
 
         ScrollBar.horizontal: ScrollBar {}
         ScrollBar.vertical: ScrollBar {}
+    }
+
+    StorageInterface {
+        id: access
+    }
+
+    function changeSelectedOrigin(xpos, ypos) {
+        selectedContainerOrigin = Qt.point(xpos, ypos);
+    }
+    function saveDoc() {
+        access.saveDoc();
     }
 }

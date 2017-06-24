@@ -2,18 +2,20 @@
 #include <QQmlApplicationEngine>
 #include <QFontDatabase>
 #include <QDebug>
+#include <QDomNode>
 
-#include "documenthandler.h"
+#include "includes/documenthandler.h"
+#include "includes/storageinterface.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
+    qmlRegisterType<DocumentHandler>("net.spencer.dochandle", 1, 0, "DocumentHandler");
+    qmlRegisterType<StorageInterface>("net.spencer.storage", 1, 0, "StorageInterface");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/gui/main.qml")));
-
-    qmlRegisterType<DocumentHandler>("net.warpmail.spencerb", 1, 0, "DocumentHandler");
 
     QFontDatabase fontDatabase;
     if (fontDatabase.addApplicationFont(":/fonts/fontello.ttf") == -1)

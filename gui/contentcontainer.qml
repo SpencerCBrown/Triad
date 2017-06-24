@@ -1,10 +1,11 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.1
-import net.warpmail.spencerb 1.0
+import net.spencer.dochandle 1.0
 
 FocusScope {
     id: rootScope
     property alias textFocus: textArea.focus
+    property alias xmlNode: documentInstance.node
     x: borderControl.x
     y: borderControl.y
     width: borderControl.width
@@ -18,6 +19,7 @@ FocusScope {
     Drag.hotSpot.y: 10
 
     DocumentHandler {
+        id: documentInstance
         textDocument: textArea.textDocument
     }
 

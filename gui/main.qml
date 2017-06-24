@@ -24,11 +24,15 @@ ApplicationWindow {
         }
 
         NotePage {
+            id: notepage
             focus: true
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.minimumWidth: 100
             Layout.preferredWidth: (parent.width / 3) * 2
         }
+    }
+    onClosing: {
+        notepage.saveDoc();
     }
 }
