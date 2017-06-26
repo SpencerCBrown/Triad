@@ -26,6 +26,12 @@ Page {
                 font.family: "fontello"
                 onClicked: MEObject.italicizeSelectedText(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y));
             }
+            ToolButton {
+                id: imageInsertButton
+                text: "\uE8005"
+                font.family: "fontello"
+                onClicked: MEObject.insertImage(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y));
+            }
         }
     }
 
@@ -38,7 +44,7 @@ Page {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, root, selectedContainerOrigin, access.createNode());
+                var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, access.createNode());
                 selectedContainerOrigin = Qt.point(contentContainer.x, contentContainer.y);
                 contentContainer.changedSelectedContainer.connect(changeSelectedOrigin);
             }

@@ -1,4 +1,4 @@
-function createTextEdit(event, parent, container, nodeInstance) {
+function createTextEdit(event, parent, nodeInstance) {
         var xpos = event.x
         var ypos = event.y
         if (xpos < 100 && ypos < 50) {

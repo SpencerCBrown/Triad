@@ -19,14 +19,14 @@ QQuickTextDocument* DocumentHandler::getTextDocument()
 
 void DocumentHandler::change()
 {
-    qDebug() << "documenthandler.cpp:22";
     m_node->setNodeValue(m_textDocument->textDocument()->toHtml());
-    qDebug() << "documenthandler.cpp:24";
 }
 
 void DocumentHandler::setNode(QVariant node)
 {
-    qDebug() << "documenthandler.cpp:27";
+    if (!node.canConvert<QDomText*>()) {
+        qDebug() << "Conversion failure";
+    }
     QDomText* tempNode = qvariant_cast<QDomText*>(node);
     m_node = tempNode;
 }

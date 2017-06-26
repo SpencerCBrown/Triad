@@ -21,7 +21,6 @@ void StorageInterface::saveDoc()
 
 QVariant StorageInterface::createNode()
 {
-    qDebug() << "StorageInterface.cpp:24";
     QDomText* tempNode = new QDomText(m_domDocument->createTextNode("TestNode"));
     m_domDocument->appendChild(*tempNode);
     QVariant test = QVariant::fromValue(tempNode);
