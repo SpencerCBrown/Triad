@@ -1,11 +1,12 @@
-QT += qml quick qml xml
+QT += qml quick qml xml gui
 
 CONFIG += c++11
 
 SOURCES += src/main.cpp \
     src/notemodel.cpp \
     src/documenthandler.cpp \
-    src/storageinterface.cpp
+    src/storageinterface.cpp \
+    src/imagebaseconverter.cpp
 
 RESOURCES += qml.qrc
 
@@ -25,4 +26,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     includes/notemodel.h \
     includes/documenthandler.h \
-    includes/storageinterface.h
+    includes/storageinterface.h \
+    includes/imagebaseconverter.h

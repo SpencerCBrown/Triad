@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.1
+import Qt.labs.platform 1.0
 import net.spencer.storage 1.0
+import net.spencer.image 1.0
 
 import "create_text_edit.js" as TEFactory
 import "manipulate.js" as MEObject
@@ -30,7 +32,20 @@ Page {
                 id: imageInsertButton
                 text: "\uE8005"
                 font.family: "fontello"
-                onClicked: MEObject.insertImage(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y));
+                onClicked:
+                    imageSelectionDialog.open();
+                ImageToString64 {
+                    id: imageUriGen
+                }
+                FileDialog {
+                    id: imageSelectionDialog
+                    currentFile: document.source
+                    folder: StandardPaths.writableLocation(StandardPaths.PicturesLocation)
+                    onAccepted: {
+                        var formattedSrcString = imageUriGen.gen(imageSelectionDialog.file.toString());
+                        MEObject.insertImage(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y), formattedSrcString);
+                    }
+                }
             }
         }
     }

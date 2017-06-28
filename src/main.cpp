@@ -6,6 +6,7 @@
 
 #include "includes/documenthandler.h"
 #include "includes/storageinterface.h"
+#include "includes/imagebaseconverter.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,6 +14,8 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     qmlRegisterType<DocumentHandler>("net.spencer.dochandle", 1, 0, "DocumentHandler");
     qmlRegisterType<StorageInterface>("net.spencer.storage", 1, 0, "StorageInterface");
+    qmlRegisterType<ImageBaseConverter>("net.spencer.image", 1, 0, "ImageToString64");
+
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/gui/main.qml")));
