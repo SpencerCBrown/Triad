@@ -6,7 +6,9 @@
 
 StorageInterface::StorageInterface(QObject *parent) : QObject(parent)
 {
-    m_domDocument = new QDomDocument("mynotes");
+    m_domDocument = new QDomDocument();
+    QDomElement root = m_domDocument->createElement("MyNotes");
+    m_domDocument->appendChild(root);
 }
 
 void StorageInterface::saveDoc()
@@ -21,8 +23,12 @@ void StorageInterface::saveDoc()
 
 QVariant StorageInterface::createNode()
 {
-    QDomText* tempNode = new QDomText(m_domDocument->createTextNode("TestNode"));
-    m_domDocument->appendChild(*tempNode);
+    QDomElement root = m_domDocument->firstChildElement();
+    QDomElement element = m_domDocument->createElement("ContentContainer");
+    QDomText* tempNode = new QDomText(m_domDocument->createTextNode(""));
+    element.appendChild(*tempNode);
+    root.appendChild(element);
+
     QVariant test = QVariant::fromValue(tempNode);
     return test;
 }
