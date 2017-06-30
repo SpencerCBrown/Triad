@@ -24,10 +24,10 @@ void StorageInterface::saveDoc()
 QVariant StorageInterface::createNode()
 {
     QDomElement root = m_domDocument->firstChildElement();
-    QDomElement element = m_domDocument->createElement("ContentContainer");
+    QDomElement* element = new QDomElement(m_domDocument->createElement("ContentContainer"));
     QDomText* tempNode = new QDomText(m_domDocument->createTextNode(""));
-    element.appendChild(*tempNode);
-    root.appendChild(element);
+    element->appendChild(*tempNode);
+    root.appendChild(*element);
 
     QVariant test = QVariant::fromValue(tempNode);
     return test;
