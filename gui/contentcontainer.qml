@@ -21,6 +21,8 @@ FocusScope {
     DocumentHandler {
         id: documentInstance
         textDocument: textArea.textDocument
+        xpos: rootScope.x
+        ypos: rootScope.y
     }
 
     Rectangle {

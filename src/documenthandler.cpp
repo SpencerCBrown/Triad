@@ -19,19 +19,41 @@ QQuickTextDocument* DocumentHandler::getTextDocument()
 
 void DocumentHandler::change()
 {
-    m_node->setNodeValue(m_textDocument->textDocument()->toHtml());
+    m_containerElement->firstChild().toText().setNodeValue(m_textDocument->textDocument()->toHtml());
 }
 
 void DocumentHandler::setNode(QVariant node)
 {
-    if (!node.canConvert<QDomText*>()) {
+    if (!node.canConvert<QDomElement*>()) {
         qDebug() << "Conversion failure";
     }
-    QDomText* tempNode = qvariant_cast<QDomText*>(node);
-    m_node = tempNode;
+    QDomElement* tempElement = qvariant_cast<QDomElement*>(node);
+    m_containerElement = tempElement;
 }
 
 QVariant DocumentHandler::getNode()
 {
-    return QVariant::fromValue(m_node);
+    return QVariant::fromValue(m_containerElement);
+}
+
+double DocumentHandler::getXPos()
+{
+    return m_xpos;
+}
+
+void DocumentHandler::setXPos(double xpos)
+{
+    m_xpos = xpos;
+    m_containerElement->setAttribute("XPos", m_xpos);
+}
+
+double DocumentHandler::getYPos()
+{
+    return m_ypos;
+}
+
+void DocumentHandler::setYPos(double ypos)
+{
+    m_ypos = ypos;
+    m_containerElement->setAttribute("YPos", m_ypos);
 }

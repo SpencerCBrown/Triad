@@ -5,7 +5,7 @@
 #include <QDomDocument>
 #include <QVariant>
 
-Q_DECLARE_METATYPE(QDomText *)
+Q_DECLARE_METATYPE(QDomElement *)
 
 class StorageInterface : public QObject
 {
