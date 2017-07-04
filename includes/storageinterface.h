@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QDomDocument>
 #include <QVariant>
+#include <QFile>
 
 Q_DECLARE_METATYPE(QDomElement *)
 
@@ -19,6 +20,9 @@ public slots:
     QVariant createNode();
 private:
     QDomDocument* m_domDocument;
+    QFile m_xmlFile;
+
+    void createDocument();
 };
 
 #endif // STORAGEINTERFACE_H

@@ -4,21 +4,19 @@
 #include <QTextStream>
 #include <QDomNode>
 
-StorageInterface::StorageInterface(QObject *parent) : QObject(parent)
+StorageInterface::StorageInterface(QObject *parent) : QObject(parent), m_xmlFile("mynotes.xml.trd")
 {
     m_domDocument = new QDomDocument();
-    QDomElement root = m_domDocument->createElement("MyNotes");
-    m_domDocument->appendChild(root);
+    createDocument();
 }
 
 void StorageInterface::saveDoc()
 {
     QString xml = m_domDocument->toString();
-    QFile file("mynotes.xml.trd");
-    file.open(QIODevice::ReadWrite | QIODevice::Text);
-    QTextStream stream(&file);
+    m_xmlFile.open(QIODevice::ReadWrite | QIODevice::Text);
+    QTextStream stream(&m_xmlFile);
     stream << xml;
-    file.close();
+    m_xmlFile.close();
 }
 
 QVariant StorageInterface::createNode()
@@ -31,4 +29,10 @@ QVariant StorageInterface::createNode()
 
     QVariant test = QVariant::fromValue(element);
     return test;
+}
+
+void StorageInterface::createDocument()
+{
+    QDomElement root = m_domDocument->createElement("MyNotes");
+    m_domDocument->appendChild(root);
 }
