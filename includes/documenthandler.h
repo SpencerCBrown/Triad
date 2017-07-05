@@ -28,7 +28,6 @@ public:
     double getYPos();
     void setYPos(double ypos);
 signals:
-    void emitChanges();
 public slots:
     void change();
 private:

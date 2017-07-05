@@ -60,7 +60,6 @@ void StorageInterface::loadDocument()
         }
     }
     file.close();
-    emit containersLoaded(m_loadedElements.length());
 }
 
 double StorageInterface::topXPos()
@@ -78,16 +77,21 @@ QString StorageInterface::topContents()
     return m_loadedElements.last()->firstChild().toText().data();
 }
 
-QDomElement* StorageInterface::popElement()
+QVariant StorageInterface::popElement()
 {
     if (m_loadedElements.isEmpty()) {
         qDebug() << "Severe logic error";
-        return nullptr;
+        return QVariant();
     }
-    return m_loadedElements.takeLast();
+    return QVariant::fromValue(m_loadedElements.takeLast());
 }
 
 StorageInterface::~StorageInterface()
 {
     delete m_domDocument;
+}
+
+void StorageInterface::finishLoading()
+{
+    emit containersLoaded(m_loadedElements.length());
 }

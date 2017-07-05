@@ -69,15 +69,11 @@ Page {
         ScrollBar.horizontal: ScrollBar {}
         ScrollBar.vertical: ScrollBar {}
     }
-    Connections {
-        target: access
-        onContainersLoaded: print("signal passed.  whew ;o");
-    }
 
     StorageInterface {
         id: access
-
-        /*onContainersLoaded: {
+        Component.onCompleted: finishLoading();
+        onContainersLoaded: {
             print("QML recieves signal")
             while (numberOfLoadedElements > 0) {
                 print ("loading\n")
@@ -85,7 +81,7 @@ Page {
                 numberOfLoadedElements--;
                 print(numberOfLoadedElements);
             }
-        }*/
+        }
     }
 
     function changeSelectedOrigin(xpos, ypos) {

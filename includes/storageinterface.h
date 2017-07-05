@@ -22,7 +22,8 @@ signals:
     void containersLoaded(int numberOfLoadedElements);
 public slots:
     QVariant createNode();
-    QDomElement* popElement();
+    QVariant popElement(); //returns QDomElement*
+    void finishLoading();
 private:
     QDomDocument* m_domDocument;
     QList<QDomElement*> m_loadedElements;
