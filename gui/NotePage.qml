@@ -46,6 +46,12 @@ Page {
                     }
                 }
             }
+            ToolButton {
+                id: underlineTextButton
+                text: "\uf0cd"
+                font.family: "fontello"
+                onClicked: MEObject.underlineSelectedText(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y));
+            }
         }
     }
 

@@ -14,3 +14,8 @@ function insertImage(contentContainer, srcString) {
         //contentContainer.content.insert(contentContainer.content.cursorPosition, "<img alt=\"Embedded Image\" src=\"data:image/jpg;base64," + imageB64 + "\" />");
     }
 }
+function underlineSelectedText(contentContainer) {
+    if (contentContainer !== null) {
+        contentContainer.content.font.underline = !contentContainer.content.font.underline
+    }
+}
