@@ -40,6 +40,7 @@ FocusScope {
             wrapMode: isImplicitlySized ? TextEdit.NoWrap : TextEdit.Wrap
             width: isImplicitlySized ? (contentWidth + leftPadding + rightPadding) : explicitWidth
             height: isImplicitlySized ? (contentHeight + topPadding + bottomPadding) : explicitHeight
+            cursorPosition: length
             property int explicitWidth //need to handle padding issues
             property int explicitHeight //^^^
             onEditingFinished: {
