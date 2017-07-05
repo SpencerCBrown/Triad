@@ -1,22 +1,29 @@
 #include "includes/storageinterface.h"
 #include <QDebug>
-#include <QFile>
-#include <QTextStream>
 #include <QDomNode>
+#include <QFile>
+#include <QFileInfo>
+#include <QTextStream>
 
-StorageInterface::StorageInterface(QObject *parent) : QObject(parent), m_xmlFile("mynotes.xml.trd")
+StorageInterface::StorageInterface(QObject *parent) : QObject(parent)
 {
+    QFile file("mynotes.xml.trd");
     m_domDocument = new QDomDocument();
-    createDocument();
+    if (file.exists()) {
+        loadDocument();
+    } else {
+        createDocument();
+    }
 }
 
 void StorageInterface::saveDoc()
 {
+    QFile file("mynotes.xml.trd");
     QString xml = m_domDocument->toString();
-    m_xmlFile.open(QIODevice::ReadWrite | QIODevice::Text);
-    QTextStream stream(&m_xmlFile);
+    file.open(QIODevice::ReadWrite | QIODevice::Text);
+    QTextStream stream(&file);
     stream << xml;
-    m_xmlFile.close();
+    file.close();
 }
 
 QVariant StorageInterface::createNode()
@@ -35,4 +42,52 @@ void StorageInterface::createDocument()
 {
     QDomElement root = m_domDocument->createElement("MyNotes");
     m_domDocument->appendChild(root);
+}
+
+void StorageInterface::loadDocument()
+{
+    QFile file("mynotes.xml.trd");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    m_domDocument->setContent(&file, false);
+    QDomElement rootElement = m_domDocument->firstChildElement();
+    if (rootElement.childNodes().length() >= 1) {
+        QDomElement tempElement = rootElement.firstChildElement();
+        m_loadedElements.append(new QDomElement(tempElement));
+        tempElement = tempElement.nextSiblingElement();
+        while (!tempElement.isNull()) {
+            m_loadedElements.append(new QDomElement(tempElement));
+            tempElement = tempElement.nextSiblingElement();
+        }
+    }
+    file.close();
+    emit containersLoaded(m_loadedElements.length());
+}
+
+double StorageInterface::topXPos()
+{
+    return m_loadedElements.last()->attribute("XPos").toDouble();
+}
+
+double StorageInterface::topYPos()
+{
+    return m_loadedElements.last()->attribute("YPos").toDouble();
+}
+
+QString StorageInterface::topContents()
+{
+    return m_loadedElements.last()->firstChild().toText().data();
+}
+
+QDomElement* StorageInterface::popElement()
+{
+    if (m_loadedElements.isEmpty()) {
+        qDebug() << "Severe logic error";
+        return nullptr;
+    }
+    return m_loadedElements.takeLast();
+}
+
+StorageInterface::~StorageInterface()
+{
+    delete m_domDocument;
 }

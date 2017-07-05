@@ -39,7 +39,6 @@ Page {
                 }
                 FileDialog {
                     id: imageSelectionDialog
-                    currentFile: document.source
                     folder: StandardPaths.writableLocation(StandardPaths.PicturesLocation)
                     onAccepted: {
                         var formattedSrcString = imageUriGen.gen(imageSelectionDialog.file.toString());
@@ -70,9 +69,23 @@ Page {
         ScrollBar.horizontal: ScrollBar {}
         ScrollBar.vertical: ScrollBar {}
     }
+    Connections {
+        target: access
+        onContainersLoaded: print("signal passed.  whew ;o");
+    }
 
     StorageInterface {
         id: access
+
+        /*onContainersLoaded: {
+            print("QML recieves signal")
+            while (numberOfLoadedElements > 0) {
+                print ("loading\n")
+                TEFactory.loadTextEdit(centralSurface.contentItem, topXPos(), topYPos(), topContents(), popElement());
+                numberOfLoadedElements--;
+                print(numberOfLoadedElements);
+            }
+        }*/
     }
 
     function changeSelectedOrigin(xpos, ypos) {

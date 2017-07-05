@@ -57,3 +57,8 @@ void DocumentHandler::setYPos(double ypos)
     m_ypos = ypos;
     m_containerElement->setAttribute("YPos", m_ypos);
 }
+
+DocumentHandler::~DocumentHandler()
+{
+    delete m_containerElement;
+}

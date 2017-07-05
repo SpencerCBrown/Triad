@@ -12,3 +12,9 @@ function createTextEdit(event, parent, nodeInstance) {
             return componentInstance
         }
     }
+
+function loadTextEdit(parent, xpos, ypos, contents, nodeInstance) {
+    var component = Qt.createComponent("contentcontainer.qml");
+    var componentInstance = component.createObject(parent, {"x": xpos, "y": ypos, "content.text": contents, "xmlNode": nodeInstance});
+    return componentInstance;
+}

@@ -13,6 +13,7 @@ class DocumentHandler : public QObject
     Q_OBJECT
 public:
     explicit DocumentHandler(QObject *parent = nullptr);
+    ~DocumentHandler();
     Q_PROPERTY(QQuickTextDocument* textDocument READ getTextDocument WRITE setTextDocument)
     Q_PROPERTY(QVariant node READ getNode WRITE setNode)
     Q_PROPERTY(double xpos READ getXPos WRITE setXPos)
