@@ -80,12 +80,9 @@ Page {
         id: access
         Component.onCompleted: finishLoading();
         onContainersLoaded: {
-            print("QML recieves signal")
             while (numberOfLoadedElements > 0) {
-                print ("loading\n")
                 TEFactory.loadTextEdit(centralSurface.contentItem, topXPos(), topYPos(), topContents(), popElement());
                 numberOfLoadedElements--;
-                print(numberOfLoadedElements);
             }
         }
     }
