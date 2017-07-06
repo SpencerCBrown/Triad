@@ -1,4 +1,4 @@
-function createTextEdit(event, parent, nodeInstance) {
+function createTextEdit(event, parent, nodeInstance, containerID) {
         var xpos = event.x
         var ypos = event.y
         if (xpos < 100 && ypos < 50) {
@@ -8,13 +8,13 @@ function createTextEdit(event, parent, nodeInstance) {
 
         if (parent.childAt(xpos, ypos) === inputArea) {
             var component = Qt.createComponent("contentcontainer.qml")
-            var componentInstance = component.createObject(parent, {"x": xpos, "y": ypos, "focus": true, "xmlNode": nodeInstance})
+            var componentInstance = component.createObject(parent, {"x": xpos, "y": ypos, "focus": true, "xmlNode": nodeInstance, "containerID": containerID})
             return componentInstance
         }
     }
 
-function loadTextEdit(parent, xpos, ypos, contents, nodeInstance) {
+function loadTextEdit(parent, xpos, ypos, contents, nodeInstance, containerID) {
     var component = Qt.createComponent("contentcontainer.qml");
-    var componentInstance = component.createObject(parent, {"x": xpos, "y": ypos, "content.text": contents, "xmlNode": nodeInstance});
+    var componentInstance = component.createObject(parent, {"x": xpos, "y": ypos, "content.text": contents, "xmlNode": nodeInstance, "containerID": containerID});
     return componentInstance;
 }

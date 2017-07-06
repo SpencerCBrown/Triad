@@ -1,21 +1,36 @@
-function boldSelectedText(contentContainer) {
-    if (contentContainer !== null) {
-        contentContainer.content.font.bold = !contentContainer.content.font.bold
+function boldSelectedText(children, id) {
+    for (var i = 0; i < children.length; i++) {
+        var container = children[i];
+        if (container.containerID === id) {
+            container.content.font.bold = !container.content.font.bold
+            break;
+        }
     }
 }
-function italicizeSelectedText(contentContainer) {
-    if (contentContainer !== null) {
-        contentContainer.content.font.italic = !contentContainer.content.font.italic
+function italicizeSelectedText(children, id) {
+    for (var i = 0; i < children.length; i++) {
+        var container = children[i];
+        if (container.containerID === id) {
+            container.content.font.italic = !container.content.font.italic
+            break;
+        }
     }
 }
-function insertImage(contentContainer, srcString) {
-    if (contentContainer !== null) {
-        contentContainer.content.insert(contentContainer.content.cursorPosition, srcString);
-        //contentContainer.content.insert(contentContainer.content.cursorPosition, "<img alt=\"Embedded Image\" src=\"data:image/jpg;base64," + imageB64 + "\" />");
+function insertImage(children, id, srcString) {
+    for (var i = 0; i < children.length; i++) {
+        var container = children[i];
+        if (container.containerID === id) {
+            container.content.insert(container.content.cursorPosition, srcString);
+            break;
+        }
     }
 }
-function underlineSelectedText(contentContainer) {
-    if (contentContainer !== null) {
-        contentContainer.content.font.underline = !contentContainer.content.font.underline
+function underlineSelectedText(children, id) {
+    for (var i = 0; i < children.length; i++) {
+        var container = children[i];
+        if (container.containerID === id) {
+            container.content.font.underline = !container.content.font.underline
+            break;
+        }
     }
 }

@@ -11,8 +11,9 @@ FocusScope {
     width: borderControl.width
     height: borderControl.height
     property bool isImplicitlySized: true
+    property string containerID;
     property alias content: textArea
-    signal changedSelectedContainer(real xpos, real ypos)
+    signal containerFocused(string ID)
 
     Drag.active: dragArea.drag.active
     Drag.hotSpot.x: 10
@@ -69,7 +70,7 @@ FocusScope {
         drag.target: parent
         onClicked: {
             rootScope.focus = true
-            rootScope.changedSelectedContainer(rootScope.x, rootScope.y)
+            rootScope.containerFocused(rootScope.containerID)
         }
     }
 }

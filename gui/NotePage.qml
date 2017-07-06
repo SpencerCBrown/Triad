@@ -9,7 +9,8 @@ import "manipulate.js" as MEObject
 
 Page {
     id: root
-    property point selectedContainerOrigin;
+    property string currentContainerID;
+    property int containerGenerationCounter: 0
 
     header: ToolBar {
         id: toolbar
@@ -19,14 +20,14 @@ Page {
                 id: boldButton
                 text: "\uE801"
                 font.family: "fontello"
-                onClicked: MEObject.boldSelectedText(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y));
+                onClicked: MEObject.boldSelectedText(centralSurface.contentItem.children, currentContainerID);
             }
 
             ToolButton {
                 id: italicButton
                 text: "\uE802"
                 font.family: "fontello"
-                onClicked: MEObject.italicizeSelectedText(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y));
+                onClicked: MEObject.italicizeSelectedText(centralSurface.contentItem.children, currentContainerID);
             }
             ToolButton {
                 id: imageInsertButton
@@ -42,7 +43,7 @@ Page {
                     folder: StandardPaths.writableLocation(StandardPaths.PicturesLocation)
                     onAccepted: {
                         var formattedSrcString = imageUriGen.gen(imageSelectionDialog.file.toString());
-                        MEObject.insertImage(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y), formattedSrcString);
+                        MEObject.insertImage(centralSurface.contentItem.children, currentContainerID, formattedSrcString);
                     }
                 }
             }
@@ -50,7 +51,7 @@ Page {
                 id: underlineTextButton
                 text: "\uf0cd"
                 font.family: "fontello"
-                onClicked: MEObject.underlineSelectedText(centralSurface.contentItem.childAt(selectedContainerOrigin.x, selectedContainerOrigin.y));
+                onClicked: MEObject.underlineSelectedText(centralSurface.contentItem.children, currentContainerID);
             }
         }
     }
@@ -64,9 +65,10 @@ Page {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, access.createNode());
-                selectedContainerOrigin = Qt.point(contentContainer.x, contentContainer.y);
-                contentContainer.changedSelectedContainer.connect(changeSelectedOrigin);
+                var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, access.createNode(), containerGenerationCounter);
+                contentContainer.containerFocused.connect(containerFocusChanged);
+                currentContainerID = containerGenerationCounter;
+                containerGenerationCounter++;
             }
             id: inputArea
             z: -1
@@ -81,14 +83,16 @@ Page {
         Component.onCompleted: finishLoading();
         onContainersLoaded: {
             while (numberOfLoadedElements > 0) {
-                TEFactory.loadTextEdit(centralSurface.contentItem, topXPos(), topYPos(), topContents(), popElement());
+                var contentContainer = TEFactory.loadTextEdit(centralSurface.contentItem, topXPos(), topYPos(), topContents(), popElement(), containerGenerationCounter++);
+                contentContainer.containerFocused.connect(containerFocusChanged);
                 numberOfLoadedElements--;
             }
         }
     }
 
-    function changeSelectedOrigin(xpos, ypos) {
-        selectedContainerOrigin = Qt.point(xpos, ypos);
+    function containerFocusChanged(containerID) {
+        print (containerID);
+        currentContainerID = containerID;
     }
     function saveDoc() {
         access.saveDoc();
