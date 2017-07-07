@@ -30,7 +30,7 @@ QVariant StorageInterface::createNode()
 {
     QDomElement root = m_domDocument->firstChildElement();
     QDomElement* element = new QDomElement(m_domDocument->createElement("ContentContainer"));
-    QDomText tempNode = m_domDocument->createTextNode("");
+    QDomCDATASection tempNode = m_domDocument->createCDATASection("");
     element->appendChild(tempNode);
     root.appendChild(*element);
 
@@ -74,7 +74,7 @@ double StorageInterface::topYPos()
 
 QString StorageInterface::topContents()
 {
-    return m_loadedElements.last()->firstChild().toText().data();
+    return m_loadedElements.last()->firstChild().toCDATASection().data();
 }
 
 QVariant StorageInterface::popElement()

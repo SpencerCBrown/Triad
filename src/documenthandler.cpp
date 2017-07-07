@@ -19,7 +19,7 @@ QQuickTextDocument* DocumentHandler::getTextDocument()
 
 void DocumentHandler::change()
 {
-    m_containerElement->firstChild().toText().setNodeValue(m_textDocument->textDocument()->toHtml());
+    m_containerElement->firstChild().toCDATASection().setNodeValue(m_textDocument->textDocument()->toHtml());
 }
 
 void DocumentHandler::setNode(QVariant node)

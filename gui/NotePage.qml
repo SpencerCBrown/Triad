@@ -83,15 +83,15 @@ Page {
         Component.onCompleted: finishLoading();
         onContainersLoaded: {
             while (numberOfLoadedElements > 0) {
-                var contentContainer = TEFactory.loadTextEdit(centralSurface.contentItem, topXPos(), topYPos(), topContents(), popElement(), containerGenerationCounter++);
+                var contentContainer = TEFactory.loadTextEdit(centralSurface.contentItem, topXPos(), topYPos(), topContents(), popElement(), containerGenerationCounter);
                 contentContainer.containerFocused.connect(containerFocusChanged);
+                containerGenerationCounter++;
                 numberOfLoadedElements--;
             }
         }
     }
 
     function containerFocusChanged(containerID) {
-        print (containerID);
         currentContainerID = containerID;
     }
     function saveDoc() {
