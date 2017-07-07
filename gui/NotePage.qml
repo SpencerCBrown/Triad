@@ -11,6 +11,7 @@ Page {
     id: root
     property string currentContainerID;
     property int containerGenerationCounter: 0
+    property var selectedContainer: 0
 
     header: ToolBar {
         id: toolbar
@@ -20,14 +21,20 @@ Page {
                 id: boldButton
                 text: "\uE801"
                 font.family: "fontello"
-                onClicked: MEObject.boldSelectedText(centralSurface.contentItem.children, currentContainerID);
+                onClicked: MEObject.boldSelectedText(selectedContainer);
             }
 
             ToolButton {
                 id: italicButton
                 text: "\uE802"
                 font.family: "fontello"
-                onClicked: MEObject.italicizeSelectedText(centralSurface.contentItem.children, currentContainerID);
+                onClicked: MEObject.italicizeSelectedText(selectedContainer);
+            }
+            ToolButton {
+                id: underlineTextButton
+                text: "\uf0cd"
+                font.family: "fontello"
+                onClicked: MEObject.underlineSelectedText(selectedContainer);
             }
             ToolButton {
                 id: imageInsertButton
@@ -43,15 +50,9 @@ Page {
                     folder: StandardPaths.writableLocation(StandardPaths.PicturesLocation)
                     onAccepted: {
                         var formattedSrcString = imageUriGen.gen(imageSelectionDialog.file.toString());
-                        MEObject.insertImage(centralSurface.contentItem.children, currentContainerID, formattedSrcString);
+                        MEObject.insertImage(selectedContainer, formattedSrcString);
                     }
                 }
-            }
-            ToolButton {
-                id: underlineTextButton
-                text: "\uf0cd"
-                font.family: "fontello"
-                onClicked: MEObject.underlineSelectedText(centralSurface.contentItem.children, currentContainerID);
             }
         }
     }
@@ -94,7 +95,18 @@ Page {
     }
 
     function containerFocusChanged(containerID) {
-        currentContainerID = containerID;
+        var children = centralSurface.contentItem.children;
+        for (var i = 0; i < children.length; i++) {
+            var container = children[i];
+            if (container.containerID === containerID) {
+                break;//final value of container is the focused child
+            }
+        }
+        if (selectedContainer !== 0) {
+            selectedContainer.containerIsFocused = false;
+        }
+        container.containerIsFocused = true;
+        selectedContainer = container;
     }
     function containerDeleted(containerID) {
         var list = centralSurface.contentItem.children;

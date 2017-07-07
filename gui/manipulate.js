@@ -1,36 +1,12 @@
-function boldSelectedText(children, id) {
-    for (var i = 0; i < children.length; i++) {
-        var container = children[i];
-        if (container.containerID === id) {
-            container.content.font.bold = !container.content.font.bold
-            break;
-        }
-    }
+function boldSelectedText(container) {
+    container.content.font.bold = !container.content.font.bold
 }
-function italicizeSelectedText(children, id) {
-    for (var i = 0; i < children.length; i++) {
-        var container = children[i];
-        if (container.containerID === id) {
-            container.content.font.italic = !container.content.font.italic
-            break;
-        }
-    }
+function italicizeSelectedText(container) {
+    container.content.font.italic = !container.content.font.italic
 }
-function insertImage(children, id, srcString) {
-    for (var i = 0; i < children.length; i++) {
-        var container = children[i];
-        if (container.containerID === id) {
-            container.content.insert(container.content.cursorPosition, srcString);
-            break;
-        }
-    }
+function insertImage(container, srcString) {
+    container.content.insert(container.content.cursorPosition, srcString);
 }
-function underlineSelectedText(children, id) {
-    for (var i = 0; i < children.length; i++) {
-        var container = children[i];
-        if (container.containerID === id) {
-            container.content.font.underline = !container.content.font.underline
-            break;
-        }
-    }
+function underlineSelectedText(container) {
+    container.content.font.underline = !container.content.font.underline
 }

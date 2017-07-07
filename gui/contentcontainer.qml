@@ -11,6 +11,7 @@ FocusScope {
     width: borderControl.width
     height: borderControl.height
     property bool isImplicitlySized: true
+    property bool containerIsFocused;
     property string containerID;
     property alias content: textArea
     signal containerFocused(string ID);
@@ -30,7 +31,7 @@ FocusScope {
     Rectangle {
         id: borderControl
         color: "transparent"
-        border.color: rootScope.activeFocus ? "black" : "transparent"
+        border.color: rootScope.containerIsFocused ? "black" : "transparent"
         height: textArea.height
         width: textArea.width
 
@@ -63,7 +64,7 @@ FocusScope {
             anchors.rightMargin: 0
             anchors.top: parent.top
             anchors.topMargin: 0
-            visible: rootScope.activeFocus
+            visible: rootScope.containerIsFocused
         }
     }
     MouseArea {
