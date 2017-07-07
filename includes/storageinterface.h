@@ -18,6 +18,7 @@ public:
     Q_INVOKABLE double topXPos();
     Q_INVOKABLE double topYPos();
     Q_INVOKABLE QString topContents();
+    Q_INVOKABLE void purgeElement(QVariant qdomelement);
 signals:
     void containersLoaded(int numberOfLoadedElements);
 public slots:

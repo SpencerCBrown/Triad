@@ -95,3 +95,13 @@ void StorageInterface::finishLoading()
 {
     emit containersLoaded(m_loadedElements.length());
 }
+
+void StorageInterface::purgeElement(QVariant qdomelement)
+{
+    if (!qdomelement.canConvert<QDomElement*>()) {
+        qDebug() << "Conversion failure";
+    }
+    QDomElement* tempElement = qvariant_cast<QDomElement*>(qdomelement);
+    m_domDocument->firstChildElement().removeChild(*tempElement);
+    //delete tempElement;
+}

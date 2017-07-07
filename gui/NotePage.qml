@@ -67,7 +67,8 @@ Page {
             onClicked: {
                 var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, access.createNode(), containerGenerationCounter);
                 contentContainer.containerFocused.connect(containerFocusChanged);
-                currentContainerID = containerGenerationCounter;
+                contentContainer.containerDeleted.connect(containerDeleted);
+                containerFocusChanged(containerGenerationCounter);
                 containerGenerationCounter++;
             }
             id: inputArea
@@ -85,6 +86,7 @@ Page {
             while (numberOfLoadedElements > 0) {
                 var contentContainer = TEFactory.loadTextEdit(centralSurface.contentItem, topXPos(), topYPos(), topContents(), popElement(), containerGenerationCounter);
                 contentContainer.containerFocused.connect(containerFocusChanged);
+                contentContainer.containerDeleted.connect(containerDeleted);
                 containerGenerationCounter++;
                 numberOfLoadedElements--;
             }
@@ -94,6 +96,16 @@ Page {
     function containerFocusChanged(containerID) {
         currentContainerID = containerID;
     }
+    function containerDeleted(containerID) {
+        var list = centralSurface.contentItem.children;
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].containerID === containerID) {
+                access.purgeElement(list[i].xmlNode);
+                list[i].destroy();
+            }
+        }
+    }
+
     function saveDoc() {
         access.saveDoc();
     }

@@ -13,7 +13,8 @@ FocusScope {
     property bool isImplicitlySized: true
     property string containerID;
     property alias content: textArea
-    signal containerFocused(string ID)
+    signal containerFocused(string ID);
+    signal containerDeleted(string ID);
 
     Drag.active: dragArea.drag.active
     Drag.hotSpot.x: 10
@@ -46,7 +47,8 @@ FocusScope {
             property int explicitHeight //^^^
             onEditingFinished: {
                 if (length == 0) { //does still return zero if images or tables, etc are displayed?
-                    rootScope.destroy()
+                    containerDeleted(containerID);
+                    //rootScope.destroy();
                 }
             }
         }
