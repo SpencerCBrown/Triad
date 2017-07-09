@@ -47,7 +47,7 @@ FocusScope {
             property int explicitWidth //need to handle padding issues
             property int explicitHeight //^^^
             onEditingFinished: {
-                if (length == 0) { //does still return zero if images or tables, etc are displayed?
+                if (length == 0 && !containerIsFocused) { //does still return zero if images or tables, etc are displayed?
                     containerDeleted(containerID);
                     //rootScope.destroy();
                 }

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.1
 import QtQuick.Controls 2.1
 import Qt.labs.platform 1.0
 import net.spencer.storage 1.0
