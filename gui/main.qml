@@ -17,10 +17,7 @@ ApplicationWindow {
         NoteBrowser {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            Layout.minimumWidth: 50
             Layout.preferredWidth: parent.height / 3
-            Layout.maximumWidth: 300
-            Layout.minimumHeight: 150
         }
 
         NotePage {
@@ -28,7 +25,6 @@ ApplicationWindow {
             focus: true
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.minimumWidth: 100
             Layout.preferredWidth: (parent.width / 3) * 2
         }
     }

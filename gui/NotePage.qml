@@ -62,6 +62,7 @@ Page {
         anchors.fill: parent
         contentWidth: Math.max(contentItem.childrenRect.width, width)
         contentHeight: Math.max(contentItem.childrenRect.height, height - toolbar.height)
+        clip: true
 
         MouseArea {
             anchors.fill: parent
