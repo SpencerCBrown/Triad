@@ -74,6 +74,7 @@ FocusScope {
         onClicked: {
             rootScope.focus = true
             rootScope.containerFocused(rootScope.containerID)
+            textArea.cursorPosition = textArea.positionAt(mouse.x, mouse.y)
         }
     }
 }
