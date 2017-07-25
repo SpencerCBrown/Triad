@@ -14,6 +14,7 @@ FocusScope {
     property bool containerIsFocused;
     property string containerID;
     property alias content: textArea
+    property int textPadding: 9
     signal containerFocused(string ID);
     signal containerDeleted(string ID);
 
@@ -31,21 +32,24 @@ FocusScope {
     Rectangle {
         id: borderControl
         color: "transparent"
-        border.color: rootScope.containerIsFocused ? "black" : "transparent"
+        border.color: (rootScope.containerIsFocused && (textArea.length > 0)) ? "black" : "transparent"
         height: textArea.height
         width: textArea.width
 
         TextArea {
             id: textArea
-            anchors.topMargin: 10
+            topPadding: textPadding
             focus: true
             textFormat: TextEdit.RichText
+            renderType: TextEdit.NativeRendering
+            font.pointSize: 11
+            font.family: "calibri"
             wrapMode: isImplicitlySized ? TextEdit.NoWrap : TextEdit.Wrap
             width: isImplicitlySized ? (contentWidth + leftPadding + rightPadding) : explicitWidth
             height: isImplicitlySized ? (contentHeight + topPadding + bottomPadding) : explicitHeight
+            property int explicitHeight //^^^
             cursorPosition: length
             property int explicitWidth //need to handle padding issues
-            property int explicitHeight //^^^
             onEditingFinished: {
                 if (length == 0 && !containerIsFocused) { //does still return zero if images or tables, etc are displayed?
                     containerDeleted(containerID);
@@ -55,7 +59,7 @@ FocusScope {
         }
         Rectangle {
             id: handle
-            height: 10
+            height: textPadding
             color: "grey"
             border.color: "black"
             anchors.left: parent.left
@@ -64,7 +68,18 @@ FocusScope {
             anchors.rightMargin: 0
             anchors.top: parent.top
             anchors.topMargin: 0
-            visible: rootScope.containerIsFocused
+            visible: (rootScope.containerIsFocused && (textArea.length > 0))
+        }
+        Rectangle {
+            id: cursorIndicator
+            visible: (rootScope.containerIsFocused && (textArea.length <= 0))
+            x: textArea.cursorRectangle.x - (width / 2)
+            y: textArea.cursorRectangle.y + textArea.cursorRectangle.height
+            width: textArea.cursorRectangle.height
+            height: textArea.cursorRectangle.height
+            radius: textArea.cursorRectangle.height / 2
+            border.width: 3
+            color: "white"
         }
     }
     MouseArea {
