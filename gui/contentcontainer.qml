@@ -4,18 +4,20 @@ import net.spencer.dochandle 1.0
 
 FocusScope {
     id: rootScope
-    property alias textFocus: textArea.focus
-    property alias xmlNode: documentInstance.node
     x: borderControl.x
     y: borderControl.y
     width: borderControl.width
     height: borderControl.height
+
+    property alias textFocus: textArea.focus
+    property alias xmlNode: documentInstance.node
+    property alias content: textArea
     property bool isImplicitlySized: true
     property bool containerIsFocused;
     property bool createdByTouch: false
     property string containerID;
-    property alias content: textArea
     property int textPadding: 9
+
     signal containerFocused(string ID);
     signal containerDeleted(string ID);
 
