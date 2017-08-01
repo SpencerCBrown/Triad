@@ -68,6 +68,9 @@ Page {
             anchors.fill: parent
             onClicked: {
                 var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, access.createNode(), containerGenerationCounter);
+                if (mouse.source !== Qt.MouseEventNotSynthesized) {
+                    contentContainer.createdByTouch = true;
+                }
                 contentContainer.containerFocused.connect(containerFocusChanged);
                 contentContainer.containerDeleted.connect(containerDeleted);
                 containerFocusChanged(containerGenerationCounter);

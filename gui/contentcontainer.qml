@@ -12,6 +12,7 @@ FocusScope {
     height: borderControl.height
     property bool isImplicitlySized: true
     property bool containerIsFocused;
+    property bool createdByTouch: false
     property string containerID;
     property alias content: textArea
     property int textPadding: 9
@@ -72,7 +73,7 @@ FocusScope {
         }
         Rectangle {
             id: cursorIndicator
-            visible: (rootScope.containerIsFocused && (textArea.length <= 0))
+            visible: (rootScope.containerIsFocused && (textArea.length <= 0) && rootScope.createdByTouch)
             x: textArea.cursorRectangle.x - (width / 2)
             y: textArea.cursorRectangle.y + textArea.cursorRectangle.height
             width: textArea.cursorRectangle.height
