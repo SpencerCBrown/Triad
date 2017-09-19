@@ -14,6 +14,7 @@ ApplicationWindow {
         anchors.left: parent.left
         height: parent.height
         width: parent.width / 3
+        notemodel: notemodel
     }
 
     NotePage {
@@ -22,6 +23,10 @@ ApplicationWindow {
         anchors.right: parent.right
         height: parent.height
         width: parent.width - view.width
+    }
+
+    NoteModel {
+        id: notemodel
     }
 
 

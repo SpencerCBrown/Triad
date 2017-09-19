@@ -1,4 +1,4 @@
-QT += qml quick qml xml gui
+QT += qml quick xml gui
 
 CONFIG += c++11
 
