@@ -6,7 +6,7 @@ Triad is split into two parts, a frontend UI written in QML/Javascript, and a ba
 Roadmap:
 First goal is a fully functional rich text editor that allows "content" containers to be placed all over the application.  This will save in directories with raw html files.
 
-Next step is compliance with the MS-ONE specification.  This will allow Triad to interoperate with [Outline](outline.ws) and [Onenote](onenote.com).
+~~Next step is compliance with the MS-ONE specification.  This will allow Triad to interoperate with [Outline](outline.ws) and [Onenote](onenote.com).~~ *This may or may not happen, as I was under the (very mistaken!) impression that OneNote used a form of xml to store notebooks.  In any case, it'll be after Triad is fully-usable with its own storage format.*
 Nothing like this exists on Linux, and considerations for that platform will drive development.  As a secondary consideration, Triad should also function on Windows and MacOSX.
 
 Triad should be able to sync with WebDav instances, other cloud storage providers like Dropbox, Google Drive, etc.
