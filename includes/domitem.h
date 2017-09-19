@@ -47,41 +47,38 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-// Copyright (C) 2017 Spencer Brown <spencerb@warpmail.net>
+//Copyright (C) 2017 Spencer Brown <spencerb@warpmail.net>
 
-#ifndef NOTEMODEL_H
-#define NOTEMODEL_H
+#ifndef DOMITEM_H
+#define DOMITEM_H
+#include <QDomNode>
+#include <QHash>
+#include <QObject>
 
-#include <QAbstractItemModel>
-#include <QFlags>
+Q_DECLARE_METATYPE(QDomNode)
 
-#include "includes/domitem.h"
-
-class QDomDocument;
-
-class NoteModel : public QAbstractItemModel
+class DomItem
 {
 public:
-    explicit NoteModel(QObject* parent = nullptr);
-    ~NoteModel();
-
-    Qt::ItemFlags flags(const QModelIndex &index) const override;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
-    QModelIndex parent(const QModelIndex &child) const override;
-    QHash<int, QByteArray> roleNames() const override;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
-
-    enum NoteModelRoles {
-        Title = Qt::UserRole,
-        Content
-    };
+    DomItem(QDomNode &node, int row, DomItem *parent = 0);
+    ~DomItem();
+    /*!
+     * \brief child accesses a contained DomItem represented by i.
+     * \param i The index of the desired child DomItem
+     * \return a DomItem
+     *
+     * This function accesses a child DomItem corresponding to the index i.  If no DomItem exists corresponding to that index, it tries to create one from a QDomNode in the underlying QDomDocument structure.
+     */
+    DomItem *child(int i);
+    DomItem *child(); //! Convenience function to access the first child DomItem.
+    DomItem *parent(); //! Returns the parent DomItem
+    QDomNode node() const; //! Returns the internal QDomNode that DomItem wraps.
+    int row(); //! Returns the row this DomItem is mapped to. (e.g. the index corresponding to this DomItem in the parent)
 
 private:
-    QDomDocument m_domDocument;
-    DomItem* m_rootItem;
+    QDomNode domNode;
+    QHash<int,DomItem*> childItems; //! This contains the child DomItems and maintains a persistent mapping of index to DomItem, even when contents are changed.
+    DomItem *parentItem;
+    int rowNumber;
 };
-
-#endif // NOTEMODEL_H
+#endif // DOMITEM_H

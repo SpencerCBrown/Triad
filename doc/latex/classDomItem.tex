@@ -1,0 +1,60 @@
+\hypertarget{classDomItem}{}\section{Dom\+Item Class Reference}
+\label{classDomItem}\index{Dom\+Item@{Dom\+Item}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDomItem_ab7b614325927474e2ffe492984b0ba93}\label{classDomItem_ab7b614325927474e2ffe492984b0ba93}} 
+{\bfseries Dom\+Item} (Q\+Dom\+Node \&\hyperlink{classDomItem_a29a7202350961e4640a895ebc1daf3a0}{node}, int \hyperlink{classDomItem_ad08a9979184909d70fb2f5000dd5a7b9}{row}, \hyperlink{classDomItem}{Dom\+Item} $\ast$\hyperlink{classDomItem_abba8216c2555c524a9ac662834019c30}{parent}=0)
+\item 
+\hyperlink{classDomItem}{Dom\+Item} $\ast$ \hyperlink{classDomItem_af1f0d64a01b07fce3d310fe71da81ca7}{child} (int i)
+\begin{DoxyCompactList}\small\item\em child accesses a contained \hyperlink{classDomItem}{Dom\+Item} represented by i. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDomItem_a30a370dc17a163568065288050ce2c37}\label{classDomItem_a30a370dc17a163568065288050ce2c37}} 
+\hyperlink{classDomItem}{Dom\+Item} $\ast$ {\bfseries child} ()
+\item 
+\mbox{\Hypertarget{classDomItem_abba8216c2555c524a9ac662834019c30}\label{classDomItem_abba8216c2555c524a9ac662834019c30}} 
+\hyperlink{classDomItem}{Dom\+Item} $\ast$ \hyperlink{classDomItem_abba8216c2555c524a9ac662834019c30}{parent} ()
+\begin{DoxyCompactList}\small\item\em Convenience function to access the first child \hyperlink{classDomItem}{Dom\+Item}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDomItem_a29a7202350961e4640a895ebc1daf3a0}\label{classDomItem_a29a7202350961e4640a895ebc1daf3a0}} 
+Q\+Dom\+Node \hyperlink{classDomItem_a29a7202350961e4640a895ebc1daf3a0}{node} () const
+\begin{DoxyCompactList}\small\item\em Returns the parent \hyperlink{classDomItem}{Dom\+Item}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDomItem_ad08a9979184909d70fb2f5000dd5a7b9}\label{classDomItem_ad08a9979184909d70fb2f5000dd5a7b9}} 
+int \hyperlink{classDomItem_ad08a9979184909d70fb2f5000dd5a7b9}{row} ()
+\begin{DoxyCompactList}\small\item\em Returns the internal Q\+Dom\+Node that \hyperlink{classDomItem}{Dom\+Item} wraps. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 60 of file domitem.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classDomItem_af1f0d64a01b07fce3d310fe71da81ca7}\label{classDomItem_af1f0d64a01b07fce3d310fe71da81ca7}} 
+\index{Dom\+Item@{Dom\+Item}!child@{child}}
+\index{child@{child}!Dom\+Item@{Dom\+Item}}
+\subsubsection{\texorpdfstring{child()}{child()}}
+{\footnotesize\ttfamily \hyperlink{classDomItem}{Dom\+Item} $\ast$ Dom\+Item\+::child (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})}
+
+
+
+child accesses a contained \hyperlink{classDomItem}{Dom\+Item} represented by i. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & The index of the desired child \hyperlink{classDomItem}{Dom\+Item} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a \hyperlink{classDomItem}{Dom\+Item}
+\end{DoxyReturn}
+This function accesses a child \hyperlink{classDomItem}{Dom\+Item} corresponding to the index i. If no \hyperlink{classDomItem}{Dom\+Item} exists corresponding to that index, it tries to create one from a Q\+Dom\+Node in the underlying Q\+Dom\+Document structure. 
+
+Definition at line 83 of file domitem.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+includes/domitem.\+h\item 
+src/domitem.\+cpp\end{DoxyCompactItemize}

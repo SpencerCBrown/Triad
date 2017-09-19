@@ -1,0 +1,59 @@
+\hypertarget{classNoteModel}{}\section{Note\+Model Class Reference}
+\label{classNoteModel}\index{Note\+Model@{Note\+Model}}
+Inheritance diagram for Note\+Model\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classNoteModel}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNoteModel_a77008f4402a891e33a05e4bd603d0fc3}\label{classNoteModel_a77008f4402a891e33a05e4bd603d0fc3}} 
+enum {\bfseries Note\+Model\+Roles} \{ {\bfseries Title} = Qt\+:\+:User\+Role, 
+{\bfseries Content}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNoteModel_a8cdb8b7c9a4a7230b6703593b9881a38}\label{classNoteModel_a8cdb8b7c9a4a7230b6703593b9881a38}} 
+{\bfseries Note\+Model} (Q\+Object $\ast$parent=nullptr)
+\item 
+\mbox{\Hypertarget{classNoteModel_a5c2b327f4aceca68ce84627dd14d3eed}\label{classNoteModel_a5c2b327f4aceca68ce84627dd14d3eed}} 
+Qt\+::\+Item\+Flags {\bfseries flags} (const Q\+Model\+Index \&index) const override
+\item 
+\mbox{\Hypertarget{classNoteModel_af7b59b219ab71617116f6dd74f315766}\label{classNoteModel_af7b59b219ab71617116f6dd74f315766}} 
+Q\+Variant {\bfseries data} (const Q\+Model\+Index \&index, int role=Qt\+::\+Display\+Role) const override
+\item 
+\mbox{\Hypertarget{classNoteModel_a94ede21a096dba8a182efe70a6235ff8}\label{classNoteModel_a94ede21a096dba8a182efe70a6235ff8}} 
+Q\+Variant {\bfseries header\+Data} (int section, Qt\+::\+Orientation orientation, int role=Qt\+::\+Display\+Role) const override
+\item 
+\mbox{\Hypertarget{classNoteModel_a0c569f32aa87c740fb2d646c54e5334d}\label{classNoteModel_a0c569f32aa87c740fb2d646c54e5334d}} 
+Q\+Model\+Index {\bfseries index} (int row, int column, const Q\+Model\+Index \&parent=Q\+Model\+Index()) const override
+\item 
+\mbox{\Hypertarget{classNoteModel_a2ee27f84cd8fe9b0e7f0222bace1fb7f}\label{classNoteModel_a2ee27f84cd8fe9b0e7f0222bace1fb7f}} 
+Q\+Model\+Index {\bfseries parent} (const Q\+Model\+Index \&child) const override
+\item 
+\mbox{\Hypertarget{classNoteModel_af46fc83db7101b3e332382b0804ef51b}\label{classNoteModel_af46fc83db7101b3e332382b0804ef51b}} 
+Q\+Hash$<$ int, Q\+Byte\+Array $>$ {\bfseries role\+Names} () const override
+\item 
+\mbox{\Hypertarget{classNoteModel_a1abbcfea2189d4496ddb25332a73ab38}\label{classNoteModel_a1abbcfea2189d4496ddb25332a73ab38}} 
+int {\bfseries row\+Count} (const Q\+Model\+Index \&parent=Q\+Model\+Index()) const override
+\item 
+\mbox{\Hypertarget{classNoteModel_ada056af2d7b7ff4ab515e9f01867aae6}\label{classNoteModel_ada056af2d7b7ff4ab515e9f01867aae6}} 
+int {\bfseries column\+Count} (const Q\+Model\+Index \&parent=Q\+Model\+Index()) const override
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 62 of file notemodel.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+includes/notemodel.\+h\item 
+src/notemodel.\+cpp\end{DoxyCompactItemize}

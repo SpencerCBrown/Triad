@@ -7,6 +7,7 @@
 #include "includes/documenthandler.h"
 #include "includes/storageinterface.h"
 #include "includes/imagebaseconverter.h"
+#include "includes/notemodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +16,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<DocumentHandler>("net.spencer.dochandle", 1, 0, "DocumentHandler");
     qmlRegisterType<StorageInterface>("net.spencer.storage", 1, 0, "StorageInterface");
     qmlRegisterType<ImageBaseConverter>("net.spencer.image", 1, 0, "ImageToString64");
+    qmlRegisterType<NoteModel>("net.spencerb.model", 1, 0, "NoteModel");
 
 
     QQmlApplicationEngine engine;

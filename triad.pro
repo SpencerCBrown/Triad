@@ -6,7 +6,8 @@ SOURCES += src/main.cpp \
     src/notemodel.cpp \
     src/documenthandler.cpp \
     src/storageinterface.cpp \
-    src/imagebaseconverter.cpp
+    src/imagebaseconverter.cpp \
+    src/domitem.cpp
 
 RESOURCES += qml.qrc
 
@@ -27,4 +28,5 @@ HEADERS += \
     includes/notemodel.h \
     includes/documenthandler.h \
     includes/storageinterface.h \
-    includes/imagebaseconverter.h
+    includes/imagebaseconverter.h \
+    includes/domitem.h

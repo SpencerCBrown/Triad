@@ -9,7 +9,7 @@ import "manipulate.js" as MEObject
 
 Page {
     id: root
-    property string currentContainerID;
+    property string currentContainerID
     property int containerGenerationCounter: 0
     property var selectedContainer: 0
 

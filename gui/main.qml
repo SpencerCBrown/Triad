@@ -1,33 +1,30 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.1
-import QtQuick.Layouts 1.3
+import net.spencerb.model 1.0
 
 ApplicationWindow {
+    id: root
     visible: true
     width: 640
     height: 480
     title: qsTr("Triad")
-    id: root
 
-    RowLayout {
-        id: layout
-        spacing: 0
-        anchors.fill: parent
-
-        NoteBrowser {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            Layout.preferredWidth: parent.height / 3
-        }
-
-        NotePage {
-            id: notepage
-            focus: true
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.preferredWidth: (parent.width / 3) * 2
-        }
+    NoteBrowser {
+        id: view
+        anchors.left: parent.left
+        height: parent.height
+        width: parent.width / 3
     }
+
+    NotePage {
+        id: notepage
+        focus: true
+        anchors.right: parent.right
+        height: parent.height
+        width: parent.width - view.width
+    }
+
+
     onClosing: {
         notepage.saveDoc();
     }

@@ -47,41 +47,54 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-// Copyright (C) 2017 Spencer Brown <spencerb@warpmail.net>
-
-#ifndef NOTEMODEL_H
-#define NOTEMODEL_H
-
-#include <QAbstractItemModel>
-#include <QFlags>
 
 #include "includes/domitem.h"
 
-class QDomDocument;
-
-class NoteModel : public QAbstractItemModel
+DomItem::DomItem(QDomNode &node, int row, DomItem *parent)
 {
-public:
-    explicit NoteModel(QObject* parent = nullptr);
-    ~NoteModel();
+    domNode = node;
+    rowNumber = row;
+    parentItem = parent;
+}
 
-    Qt::ItemFlags flags(const QModelIndex &index) const override;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
-    QModelIndex parent(const QModelIndex &child) const override;
-    QHash<int, QByteArray> roleNames() const override;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+DomItem::~DomItem()
+{
+    QHash<int,DomItem*>::iterator it;
+    for (it = childItems.begin(); it != childItems.end(); ++it)
+        delete it.value();
+}
 
-    enum NoteModelRoles {
-        Title = Qt::UserRole,
-        Content
-    };
 
-private:
-    QDomDocument m_domDocument;
-    DomItem* m_rootItem;
-};
+DomItem *DomItem::parent()
+{
+    return parentItem;
+}
 
-#endif // NOTEMODEL_H
+int DomItem::row()
+{
+    return rowNumber;
+}
+
+QDomNode DomItem::node() const
+{
+    return domNode;
+}
+
+DomItem *DomItem::child(int i)
+{
+    if (childItems.contains(i))
+        return childItems[i];
+
+    if (i >= 0 && i < domNode.childNodes().count()) {
+        QDomNode childNode = domNode.childNodes().item(i);
+        DomItem *childItem = new DomItem(childNode, i, this);
+        childItems[i] = childItem;
+        return childItem;
+    }
+    return 0;
+}
+
+DomItem *DomItem::child()
+{
+    return child(0);
+}
