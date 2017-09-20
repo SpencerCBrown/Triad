@@ -51,6 +51,7 @@
 
 #include "includes/notemodel.h"
 #include <QFile>
+#include <QDebug>
 
 NoteModel::NoteModel(QObject *parent)
     : QAbstractItemModel(parent), m_domDocument()
@@ -73,7 +74,7 @@ Qt::ItemFlags NoteModel::flags(const QModelIndex &index) const
     if (!index.isValid()) {
         return 0;
     }
-    return QAbstractItemModel::flags(index);
+    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 }
 
 QHash<int, QByteArray> NoteModel::roleNames() const
@@ -81,6 +82,8 @@ QHash<int, QByteArray> NoteModel::roleNames() const
     QHash<int, QByteArray> roles;
     roles[Title] = "title";
     roles[Content] = "content";
+    roles[XPOSITION] = "x";
+    roles[YPOSITION] = "y";
     return roles;
 }
 
@@ -92,11 +95,57 @@ QVariant NoteModel::data(const QModelIndex &index, int role) const
     if (role == NoteModelRoles::Title) {
         DomItem *item = static_cast<DomItem*>(index.internalPointer());
         QDomNode node = item->node();
-        return node.nodeName();
+        QDomNamedNodeMap atts = node.attributes();
+        if (atts.contains("title")) {
+            QDomAttr attr = atts.namedItem("title").toAttr();
+            return attr.value();
+        } else {
+            return QVariant();
+        }
     } else if (role == NoteModelRoles::Content) {
         DomItem *item = static_cast<DomItem*>(index.internalPointer());
         QDomNode node = item->node();
         return QVariant::fromValue(node);
+    } else if (role == NoteModelRoles::XPOSITION) {
+        DomItem *item = static_cast<DomItem*>(index.internalPointer());
+        QDomNode node = item->node();
+        QDomNamedNodeMap atts = node.attributes();
+        if (node.nodeName() == "ContentContainer") {
+            if (atts.contains("XPos")) { //all ContentContainer nodes should have an XPos attribute, this is just in case.
+                QDomAttr attr = atts.namedItem("XPos").toAttr();
+                bool errChk;
+                QVariant xValue = attr.value().toDouble(&errChk);
+                if (errChk == false) { //if value stored at XPos is for some reason not convertible to a double.
+                    qDebug() << "Conversion error occurred: " << __LINE__ << " in " << __FILE__;
+                    return QVariant();
+                } else {
+                    return xValue;
+                }
+            } else {
+                qDebug() << "Error parsing xml document.";
+                return QVariant();
+            }
+        }
+    } else if (role == NoteModelRoles::YPOSITION) {
+        DomItem *item = static_cast<DomItem*>(index.internalPointer());
+        QDomNode node = item->node();
+        QDomNamedNodeMap atts = node.attributes();
+        if (node.nodeName() == "ContentContainer") {
+            if (atts.contains("YPos")) { //all ContentContainer nodes should have an XPos attribute, this is just in case.
+                QDomAttr attr = atts.namedItem("YPos").toAttr();
+                bool errChk;
+                QVariant xValue = attr.value().toDouble(&errChk);
+                if (errChk == false) { //if value stored at XPos is for some reason not convertible to a double.
+                    qDebug() << "Conversion error occurred: " << __LINE__ << " in " << __FILE__;
+                    return QVariant();
+                } else {
+                    return xValue;
+                }
+            } else {
+                qDebug() << "Error parsing xml document.";
+                return QVariant();
+            }
+        }
     }
     return QVariant();
 }

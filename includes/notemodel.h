@@ -76,7 +76,9 @@ public:
 
     enum NoteModelRoles {
         Title = Qt::UserRole,
-        Content
+        Content,
+        XPOSITION,
+        YPOSITION
     };
 
 private:
