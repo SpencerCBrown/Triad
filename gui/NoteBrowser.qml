@@ -4,7 +4,7 @@ import QtQml.Models 2.2
 FocusScope {
     id: root
     property alias notemodel: delegate.model
-    onFocusChanged: print("focus changed about notebrowser")
+    clip: true
     signal modelSelectionChanged(int newIndex)
 
     VisualDataModel {
@@ -23,11 +23,11 @@ FocusScope {
         id: list
         anchors.fill: parent
         model: delegate
-        focus: true
         currentIndex: 1
         highlightFollowsCurrentItem: true
         MouseArea {
             id: focusarea
+            anchors.fill: parent
             onClicked: {
                 list.currentIndex = list.indexAt(mouse.x, mouse.y)
                 modelSelectionChanged(list.currentIndex)

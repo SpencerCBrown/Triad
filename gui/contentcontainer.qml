@@ -13,7 +13,7 @@ FocusScope {
     property alias xmlNode: documentInstance.node
     property alias content: textArea
     property bool isImplicitlySized: true
-    property bool containerIsFocused;
+    property bool containerIsFocused
     property bool createdByTouch: false
     property string containerID;
     property int textPadding: 9
