@@ -22,6 +22,9 @@ public:
     Q_INVOKABLE double topYPos();
     Q_INVOKABLE QString topContents();
     Q_INVOKABLE void purgeElement(QVariant qdomelement);
+    Q_INVOKABLE void setContent(int index, QString contentsString);
+    Q_INVOKABLE void setXPos(int index, double x_Pos);
+    Q_INVOKABLE void setYPos(int index, double y_Pos);
 signals:
     void containersLoaded(int numberOfLoadedElements);
     void idChanged(int id);

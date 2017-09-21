@@ -19,7 +19,12 @@ QQuickTextDocument* DocumentHandler::getTextDocument()
 
 void DocumentHandler::change()
 {
-    m_containerElement->firstChild().toCDATASection().setNodeValue(m_textDocument->textDocument()->toHtml());
+    emit contentsChanged(m_textDocument->textDocument()->toHtml());
+}
+
+QString DocumentHandler::getDocumentHtml()
+{
+    return m_textDocument->textDocument()->toHtml();
 }
 
 void DocumentHandler::setNode(QVariant node)
@@ -45,6 +50,7 @@ void DocumentHandler::setXPos(double xpos)
 {
     m_xpos = xpos;
     m_containerElement->setAttribute("XPos", m_xpos);
+    emit xPositionChanged(m_xpos);
 }
 
 double DocumentHandler::getYPos()
@@ -56,6 +62,7 @@ void DocumentHandler::setYPos(double ypos)
 {
     m_ypos = ypos;
     m_containerElement->setAttribute("YPos", m_ypos);
+    emit yPositionChanged(m_ypos);
 }
 
 DocumentHandler::~DocumentHandler()

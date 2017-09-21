@@ -92,10 +92,25 @@ Page {
                 var contentContainer = TEFactory.loadTextEdit(centralSurface.contentItem, topXPos(), topYPos(), topContents(), popElement(), containerGenerationCounter);
                 contentContainer.containerFocused.connect(containerFocusChanged);
                 contentContainer.containerDeleted.connect(containerDeleted);
+                contentContainer.containerContentChanged.connect(containerContentChanged);
+                contentContainer.containerXChanged.connect(containerXPosChanged);
+                contentContainer.containerYChanged.connect(containerYPosChanged);
                 containerGenerationCounter++;
                 numberOfLoadedElements--;
             }
         }
+    }
+
+    function containerContentChanged(containerID, contentsString) {
+        access.setContent(containerID, contentsString)
+    }
+
+    function containerXPosChanged(containerID, x_Pos) {
+        access.setXPos(containerID, x_Pos)
+    }
+
+    function containerYPosChanged(containerID, y_Pos) {
+        access.setYPos(containerID, y_Pos)
     }
 
     function containerFocusChanged(containerID) {

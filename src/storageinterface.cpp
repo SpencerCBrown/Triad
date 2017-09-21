@@ -62,6 +62,21 @@ void StorageInterface::loadDocument()
     file.close();
 }
 
+void StorageInterface::setContent(int index, QString contentsString)
+{
+    //TODO implement
+}
+
+void StorageInterface::setXPos(int index, double x_Pos)
+{
+    //TODO
+}
+
+void StorageInterface::setYPos(int index, double y_Pos)
+{
+    //TODO
+}
+
 void StorageInterface::setChildId(int childId)
 {
     m_childId = childId;
