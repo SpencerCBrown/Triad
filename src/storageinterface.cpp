@@ -62,6 +62,17 @@ void StorageInterface::loadDocument()
     file.close();
 }
 
+void StorageInterface::setChildId(int childId)
+{
+    m_childId = childId;
+    emit idChanged(m_childId);
+}
+
+int StorageInterface::getChildId()
+{
+    return m_childId;
+}
+
 double StorageInterface::topXPos()
 {
     return m_loadedElements.last()->attribute("XPos").toDouble();

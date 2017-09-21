@@ -5,6 +5,7 @@ FocusScope {
     id: root
     property alias notemodel: delegate.model
     onFocusChanged: print("focus changed about notebrowser")
+    signal modelSelectionChanged(int newIndex)
 
     VisualDataModel {
         id: delegate
@@ -23,8 +24,14 @@ FocusScope {
         anchors.fill: parent
         model: delegate
         focus: true
+        currentIndex: 1
+        highlightFollowsCurrentItem: true
         MouseArea {
             id: focusarea
+            onClicked: {
+                list.currentIndex = list.indexAt(mouse.x, mouse.y)
+                modelSelectionChanged(list.currentIndex)
+            }
         }
     }
 }
