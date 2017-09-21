@@ -17,6 +17,7 @@ FocusScope {
     property bool createdByTouch: false
     property string containerID;
     property int textPadding: 9
+    property alias textdoc: documentInstance.textDocument
 
     signal containerFocused(string ID);
     signal containerDeleted(string ID);
