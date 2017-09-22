@@ -60,12 +60,14 @@ NoteModel::NoteModel(QObject *parent)
     if (file.exists()) {
         file.open(QIODevice::ReadOnly | QIODevice::Text);
         m_domDocument.setContent(&file, false);
+        file.close();
     }
     m_rootItem = new DomItem(m_domDocument, 0);
 }
 
 NoteModel::~NoteModel()
 {
+    saveToDisk();
     delete m_rootItem;
 }
 
@@ -82,8 +84,6 @@ QHash<int, QByteArray> NoteModel::roleNames() const
     QHash<int, QByteArray> roles;
     roles[Title] = "title";
     roles[Content] = "content";
-    roles[XPOSITION] = "x";
-    roles[YPOSITION] = "y";
     return roles;
 }
 
@@ -105,9 +105,7 @@ QVariant NoteModel::data(const QModelIndex &index, int role) const
     } else if (role == NoteModelRoles::Content) {
         DomItem *item = static_cast<DomItem*>(index.internalPointer());
         QDomNode node = item->node();
-        if (node.nodeName() == "Notepage") {
-            return node.childNodes().count();
-        } else if (node.nodeName() == "ContentContainer") {
+        if (node.nodeName() == "ContentContainer") {
             return node.toCDATASection().data();
         }
         return QVariant();
@@ -141,6 +139,16 @@ QModelIndex NoteModel::index(int row, int column, const QModelIndex &parent) con
             return createIndex(row, column, childItem);
         else
             return QModelIndex();
+}
+
+void NoteModel::saveToDisk()
+{
+    QFile file("mynotes.xml.trd");
+    QString xml = m_domDocument.toString();
+    file.open(QIODevice::ReadWrite | QIODevice::Text);
+    QTextStream stream(&file);
+    stream << xml;
+    file.close();
 }
 
 QModelIndex NoteModel::parent(const QModelIndex &child) const

@@ -75,11 +75,11 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
+    void saveToDisk();
+
     enum NoteModelRoles {
         Title = Qt::UserRole,
-        Content,
-        XPOSITION,
-        YPOSITION
+        Content
     };
 
 private:

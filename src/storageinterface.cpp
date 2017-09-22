@@ -24,6 +24,7 @@ void StorageInterface::saveDoc()
     file.open(QIODevice::ReadWrite | QIODevice::Text);
     QTextStream stream(&file);
     stream << xml;
+    qDebug() << xml;
     file.close();
 }
 
@@ -135,7 +136,7 @@ int StorageInterface::pageChildContainers()
             if (section.isValid()) {
                 QModelIndex notepage = m_dataModel->index(0, 0, section);
                 if (notepage.isValid()) {
-                    return m_dataModel->data(notepage, NoteModel::NoteModelRoles::Content).toInt();
+                    return m_dataModel->rowCount(notepage);
                 }
             }
         }
