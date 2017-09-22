@@ -12,6 +12,7 @@ Page {
     property string currentContainerID
     property int containerGenerationCounter: 0
     property var selectedContainer: 0
+    property alias nModel: access.nModel
 
     header: ToolBar {
         id: toolbar
@@ -73,6 +74,9 @@ Page {
                 }
                 contentContainer.containerFocused.connect(containerFocusChanged);
                 contentContainer.containerDeleted.connect(containerDeleted);
+                contentContainer.containerContentChanged.connect(containerContentChanged);
+                contentContainer.containerXChanged.connect(containerXPosChanged);
+                contentContainer.containerYChanged.connect(containerYPosChanged);
                 containerFocusChanged(containerGenerationCounter);
                 containerGenerationCounter++;
             }

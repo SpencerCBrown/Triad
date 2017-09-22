@@ -61,6 +61,7 @@ class QDomDocument;
 
 class NoteModel : public QAbstractItemModel
 {
+
 public:
     explicit NoteModel(QObject* parent = nullptr);
     ~NoteModel();
@@ -85,5 +86,7 @@ private:
     QDomDocument m_domDocument;
     DomItem* m_rootItem;
 };
+
+Q_DECLARE_METATYPE(NoteModel*)
 
 #endif // NOTEMODEL_H

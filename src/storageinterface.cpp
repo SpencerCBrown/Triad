@@ -122,6 +122,22 @@ void StorageInterface::finishLoading()
     emit containersLoaded(m_loadedElements.length());
 }
 
+int StorageInterface::pageChildContainers()
+{
+    //TODO return number of children (contentContainers) in active NotePage
+}
+
+void StorageInterface::setModel(NoteModel* model)
+{
+    m_dataModel = model;
+}
+
+NoteModel* StorageInterface::getModel()
+{
+    //return QVariant::fromValue(m_dataModel);
+    return m_dataModel;
+}
+
 void StorageInterface::purgeElement(QVariant qdomelement)
 {
     if (!qdomelement.canConvert<QDomElement*>()) {
@@ -129,5 +145,4 @@ void StorageInterface::purgeElement(QVariant qdomelement)
     }
     QDomElement* tempElement = qvariant_cast<QDomElement*>(qdomelement);
     m_domDocument->firstChildElement().removeChild(*tempElement);
-    //delete tempElement;
 }

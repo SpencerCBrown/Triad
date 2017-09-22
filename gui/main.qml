@@ -23,6 +23,7 @@ ApplicationWindow {
         anchors.right: parent.right
         height: parent.height
         width: parent.width - view.width
+        nModel: notemodel
     }
 
     NoteModel {
