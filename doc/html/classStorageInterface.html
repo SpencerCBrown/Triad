@@ -64,11 +64,17 @@ $(function() {
 <a href="#pub-slots">Public Slots</a> &#124;
 <a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#properties">Properties</a> &#124;
 <a href="classStorageInterface-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">StorageInterface Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The <a class="el" href="classStorageInterface.html" title="The StorageInterface class acts as a liason between the model and the UI. ">StorageInterface</a> class acts as a liason between the model and the UI.  
+ <a href="classStorageInterface.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="storageinterface_8h_source.html">storageinterface.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for StorageInterface:</div>
 <div class="dyncontent">
@@ -95,6 +101,9 @@ Signals</h2></td></tr>
 <tr class="memitem:adab2ae35804274ef3773e27757081ffa"><td class="memItemLeft" align="right" valign="top"><a id="adab2ae35804274ef3773e27757081ffa"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>containersLoaded</b> (int numberOfLoadedElements)</td></tr>
 <tr class="separator:adab2ae35804274ef3773e27757081ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34510ab0d18c65460d2f48de9899627a"><td class="memItemLeft" align="right" valign="top"><a id="a34510ab0d18c65460d2f48de9899627a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>idChanged</b> (int id)</td></tr>
+<tr class="separator:a34510ab0d18c65460d2f48de9899627a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -116,10 +125,30 @@ Q_INVOKABLE QString&#160;</td><td class="memItemRight" valign="bottom"><b>topCon
 <tr class="memitem:a0688904dc97ecb5f1693633744e7d065"><td class="memItemLeft" align="right" valign="top"><a id="a0688904dc97ecb5f1693633744e7d065"></a>
 Q_INVOKABLE void&#160;</td><td class="memItemRight" valign="bottom"><b>purgeElement</b> (QVariant qdomelement)</td></tr>
 <tr class="separator:a0688904dc97ecb5f1693633744e7d065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1616fb52651a1aa8b56431ac91f65b40"><td class="memItemLeft" align="right" valign="top"><a id="a1616fb52651a1aa8b56431ac91f65b40"></a>
+Q_INVOKABLE void&#160;</td><td class="memItemRight" valign="bottom"><b>setContent</b> (int index, QString contentsString)</td></tr>
+<tr class="separator:a1616fb52651a1aa8b56431ac91f65b40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27e8bcbd40aaa6fd224eff3e9a667499"><td class="memItemLeft" align="right" valign="top"><a id="a27e8bcbd40aaa6fd224eff3e9a667499"></a>
+Q_INVOKABLE void&#160;</td><td class="memItemRight" valign="bottom"><b>setXPos</b> (int index, double x_Pos)</td></tr>
+<tr class="separator:a27e8bcbd40aaa6fd224eff3e9a667499"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e517d8704b5ffb89c819e0dd5145fe3"><td class="memItemLeft" align="right" valign="top"><a id="a5e517d8704b5ffb89c819e0dd5145fe3"></a>
+Q_INVOKABLE void&#160;</td><td class="memItemRight" valign="bottom"><b>setYPos</b> (int index, double y_Pos)</td></tr>
+<tr class="separator:a5e517d8704b5ffb89c819e0dd5145fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9e9c5ed5fbc7f85a8fdf446a496498f"><td class="memItemLeft" align="right" valign="top"><a id="af9e9c5ed5fbc7f85a8fdf446a496498f"></a>
+Q_INVOKABLE int&#160;</td><td class="memItemRight" valign="bottom"><b>pageChildContainers</b> ()</td></tr>
+<tr class="separator:af9e9c5ed5fbc7f85a8fdf446a496498f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:ac0a37a874f47facde620b2382ee4c32d"><td class="memItemLeft" align="right" valign="top"><a id="ac0a37a874f47facde620b2382ee4c32d"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>childId</b></td></tr>
+<tr class="separator:ac0a37a874f47facde620b2382ee4c32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="storageinterface_8h_source.html#l00011">11</a> of file <a class="el" href="storageinterface_8h_source.html">storageinterface.h</a>.</p>
+<div class="textblock"><p>The <a class="el" href="classStorageInterface.html" title="The StorageInterface class acts as a liason between the model and the UI. ">StorageInterface</a> class acts as a liason between the model and the UI. </p>
+<p>It keeps track of items, but in a non-implementation-defined way. It has no knowledge of the DOM. </p>
+
+<p class="definition">Definition at line <a class="el" href="storageinterface_8h_source.html#l00018">18</a> of file <a class="el" href="storageinterface_8h_source.html">storageinterface.h</a>.</p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>includes/<a class="el" href="storageinterface_8h_source.html">storageinterface.h</a></li>
 <li>src/<a class="el" href="storageinterface_8cpp_source.html">storageinterface.cpp</a></li>

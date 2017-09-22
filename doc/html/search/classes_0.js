@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['access',['Access',['../classAccess.html',1,'']]]
+  ['documenthandler',['DocumentHandler',['../classDocumentHandler.html',1,'']]],
+  ['domitem',['DomItem',['../classDomItem.html',1,'']]]
 ];

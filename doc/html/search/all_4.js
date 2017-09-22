@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['node',['node',['../classDomItem.html#a29a7202350961e4640a895ebc1daf3a0',1,'DomItem']]],
-  ['notemodel',['NoteModel',['../classNoteModel.html',1,'']]]
+  ['parent',['parent',['../classDomItem.html#abba8216c2555c524a9ac662834019c30',1,'DomItem']]]
 ];

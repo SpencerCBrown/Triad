@@ -1,5 +1,14 @@
 \hypertarget{classStorageInterface}{}\section{Storage\+Interface Class Reference}
 \label{classStorageInterface}\index{Storage\+Interface@{Storage\+Interface}}
+
+
+The \hyperlink{classStorageInterface}{Storage\+Interface} class acts as a liason between the model and the UI.  
+
+
+
+
+{\ttfamily \#include $<$storageinterface.\+h$>$}
+
 Inheritance diagram for Storage\+Interface\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -23,6 +32,9 @@ void {\bfseries finish\+Loading} ()
 \item 
 \mbox{\Hypertarget{classStorageInterface_adab2ae35804274ef3773e27757081ffa}\label{classStorageInterface_adab2ae35804274ef3773e27757081ffa}} 
 void {\bfseries containers\+Loaded} (int number\+Of\+Loaded\+Elements)
+\item 
+\mbox{\Hypertarget{classStorageInterface_a34510ab0d18c65460d2f48de9899627a}\label{classStorageInterface_a34510ab0d18c65460d2f48de9899627a}} 
+void {\bfseries id\+Changed} (int id)
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -44,13 +56,33 @@ Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE Q\+String {\bfseries top\+Contents} ()
 \item 
 \mbox{\Hypertarget{classStorageInterface_a0688904dc97ecb5f1693633744e7d065}\label{classStorageInterface_a0688904dc97ecb5f1693633744e7d065}} 
 Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void {\bfseries purge\+Element} (Q\+Variant qdomelement)
+\item 
+\mbox{\Hypertarget{classStorageInterface_a1616fb52651a1aa8b56431ac91f65b40}\label{classStorageInterface_a1616fb52651a1aa8b56431ac91f65b40}} 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void {\bfseries set\+Content} (int index, Q\+String contents\+String)
+\item 
+\mbox{\Hypertarget{classStorageInterface_a27e8bcbd40aaa6fd224eff3e9a667499}\label{classStorageInterface_a27e8bcbd40aaa6fd224eff3e9a667499}} 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void {\bfseries set\+X\+Pos} (int index, double x\+\_\+\+Pos)
+\item 
+\mbox{\Hypertarget{classStorageInterface_a5e517d8704b5ffb89c819e0dd5145fe3}\label{classStorageInterface_a5e517d8704b5ffb89c819e0dd5145fe3}} 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE void {\bfseries set\+Y\+Pos} (int index, double y\+\_\+\+Pos)
+\item 
+\mbox{\Hypertarget{classStorageInterface_af9e9c5ed5fbc7f85a8fdf446a496498f}\label{classStorageInterface_af9e9c5ed5fbc7f85a8fdf446a496498f}} 
+Q\+\_\+\+I\+N\+V\+O\+K\+A\+B\+LE int {\bfseries page\+Child\+Containers} ()
+\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classStorageInterface_ac0a37a874f47facde620b2382ee4c32d}\label{classStorageInterface_ac0a37a874f47facde620b2382ee4c32d}} 
+int {\bfseries child\+Id}
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
+The \hyperlink{classStorageInterface}{Storage\+Interface} class acts as a liason between the model and the UI. 
 
+It keeps track of items, but in a non-\/implementation-\/defined way. It has no knowledge of the D\+OM. 
 
-Definition at line 11 of file storageinterface.\+h.
+Definition at line 18 of file storageinterface.\+h.
 
 
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['notemodel',['NoteModel',['../classNoteModel.html',1,'']]]
+  ['storageinterface',['StorageInterface',['../classStorageInterface.html',1,'']]]
 ];
