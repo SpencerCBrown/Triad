@@ -105,47 +105,12 @@ QVariant NoteModel::data(const QModelIndex &index, int role) const
     } else if (role == NoteModelRoles::Content) {
         DomItem *item = static_cast<DomItem*>(index.internalPointer());
         QDomNode node = item->node();
-        return QVariant::fromValue(node);
-    } else if (role == NoteModelRoles::XPOSITION) {
-        DomItem *item = static_cast<DomItem*>(index.internalPointer());
-        QDomNode node = item->node();
-        QDomNamedNodeMap atts = node.attributes();
-        if (node.nodeName() == "ContentContainer") {
-            if (atts.contains("XPos")) { //all ContentContainer nodes should have an XPos attribute, this is just in case.
-                QDomAttr attr = atts.namedItem("XPos").toAttr();
-                bool errChk;
-                QVariant xValue = attr.value().toDouble(&errChk);
-                if (errChk == false) { //if value stored at XPos is for some reason not convertible to a double.
-                    qDebug() << "Conversion error occurred: " << __LINE__ << " in " << __FILE__;
-                    return QVariant();
-                } else {
-                    return xValue;
-                }
-            } else {
-                qDebug() << "Error parsing xml document.";
-                return QVariant();
-            }
+        if (node.nodeName() == "Notepage") {
+            return node.childNodes().count();
+        } else if (node.nodeName() == "ContentContainer") {
+            return node.toCDATASection().data();
         }
-    } else if (role == NoteModelRoles::YPOSITION) {
-        DomItem *item = static_cast<DomItem*>(index.internalPointer());
-        QDomNode node = item->node();
-        QDomNamedNodeMap atts = node.attributes();
-        if (node.nodeName() == "ContentContainer") {
-            if (atts.contains("YPos")) { //all ContentContainer nodes should have an XPos attribute, this is just in case.
-                QDomAttr attr = atts.namedItem("YPos").toAttr();
-                bool errChk;
-                QVariant xValue = attr.value().toDouble(&errChk);
-                if (errChk == false) { //if value stored at XPos is for some reason not convertible to a double.
-                    qDebug() << "Conversion error occurred: " << __LINE__ << " in " << __FILE__;
-                    return QVariant();
-                } else {
-                    return xValue;
-                }
-            } else {
-                qDebug() << "Error parsing xml document.";
-                return QVariant();
-            }
-        }
+        return QVariant();
     }
     return QVariant();
 }
@@ -160,8 +125,9 @@ QVariant NoteModel::headerData(int section, Qt::Orientation orientation, int rol
 
 QModelIndex NoteModel::index(int row, int column, const QModelIndex &parent) const
 {
-    if (!hasIndex(row, column, parent))
-            return QModelIndex();
+    if (!hasIndex(row, column, parent)) {
+        return QModelIndex();
+    }
 
         DomItem *parentItem;
 

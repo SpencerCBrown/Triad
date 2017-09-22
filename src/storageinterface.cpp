@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
+#include <QModelIndex>
 
 StorageInterface::StorageInterface(QObject *parent) : QObject(parent)
 {
@@ -125,6 +126,21 @@ void StorageInterface::finishLoading()
 int StorageInterface::pageChildContainers()
 {
     //TODO return number of children (contentContainers) in active NotePage
+    //temporarily hardcoded
+    QModelIndex rootItem = m_dataModel->index(0, 0);
+    if (rootItem.isValid()) {
+        QModelIndex notebook = m_dataModel->index(0, 0, rootItem);
+        if (notebook.isValid()) {
+            QModelIndex section = m_dataModel->index(0, 0, notebook);
+            if (section.isValid()) {
+                QModelIndex notepage = m_dataModel->index(0, 0, section);
+                if (notepage.isValid()) {
+                    return m_dataModel->data(notepage, NoteModel::NoteModelRoles::Content).toInt();
+                }
+            }
+        }
+    }
+    return -1;
 }
 
 void StorageInterface::setModel(NoteModel* model)

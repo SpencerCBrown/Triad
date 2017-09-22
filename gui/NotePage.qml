@@ -90,7 +90,15 @@ Page {
 
     StorageInterface {
         id: access
-        Component.onCompleted: finishLoading();
+        Component.onCompleted:
+        {
+            var count = pageChildContainers()
+            print(count)
+//            while (count++ > 0) {
+//                make containers
+//            }
+        }
+
         onContainersLoaded: {
             while (numberOfLoadedElements > 0) {
                 var contentContainer = TEFactory.loadTextEdit(centralSurface.contentItem, topXPos(), topYPos(), topContents(), popElement(), containerGenerationCounter);
