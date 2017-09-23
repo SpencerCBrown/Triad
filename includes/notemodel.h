@@ -72,6 +72,7 @@ public:
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
     QModelIndex parent(const QModelIndex &child) const override;
     QHash<int, QByteArray> roleNames() const override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 

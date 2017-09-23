@@ -52,6 +52,7 @@
 #include "includes/notemodel.h"
 #include <QFile>
 #include <QDebug>
+#include <QDomNode>
 
 NoteModel::NoteModel(QObject *parent)
     : QAbstractItemModel(parent), m_domDocument()
@@ -106,7 +107,7 @@ QVariant NoteModel::data(const QModelIndex &index, int role) const
         DomItem *item = static_cast<DomItem*>(index.internalPointer());
         QDomNode node = item->node();
         if (node.nodeName() == "ContentContainer") {
-            return node.toCDATASection().data();
+            return node.firstChild().toCDATASection().data();
         }
         return QVariant();
     }
@@ -139,6 +140,26 @@ QModelIndex NoteModel::index(int row, int column, const QModelIndex &parent) con
             return createIndex(row, column, childItem);
         else
             return QModelIndex();
+}
+
+bool NoteModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (index.isValid() && role == NoteModelRoles::Content) {
+        DomItem *item = static_cast<DomItem*>(index.parent().internalPointer());
+        QDomNode node = item->node();
+
+        if (node.isElement()) {
+            QString currentContents = value.toString();
+            QDomCDATASection section = node.toElement().firstChild().toCDATASection();
+            QString oldContents = section.data();
+            if (oldContents != currentContents) {
+                section.setNodeValue(currentContents);
+            }
+        } else {
+            qDebug() << "Node was not element";
+        }
+    }
+    return false;
 }
 
 void NoteModel::saveToDisk()
