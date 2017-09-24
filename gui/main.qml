@@ -29,8 +29,4 @@ ApplicationWindow {
     NoteModel {
         id: notemodel
     }
-
-    onClosing: {
-        notepage.saveDoc();
-    }
 }

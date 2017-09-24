@@ -17,17 +17,6 @@ StorageInterface::StorageInterface(QObject *parent) : QObject(parent)
     }
 }
 
-void StorageInterface::saveDoc()
-{
-    QFile file("mynotes.xml.trd");
-    QString xml = m_domDocument->toString();
-    file.open(QIODevice::ReadWrite | QIODevice::Text);
-    QTextStream stream(&file);
-    stream << xml;
-    qDebug() << xml;
-    file.close();
-}
-
 QVariant StorageInterface::createNode()
 {
     QDomElement root = m_domDocument->firstChildElement();

@@ -148,8 +148,4 @@ Page {
             }
         }
     }
-
-    function saveDoc() {
-        access.saveDoc();
-    }
 }

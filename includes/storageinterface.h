@@ -24,7 +24,6 @@ public:
     ~StorageInterface();
     Q_PROPERTY(int childId READ getChildId WRITE setChildId)
     Q_PROPERTY(NoteModel* nModel MEMBER m_dataModel)
-    Q_INVOKABLE void saveDoc();
     Q_INVOKABLE double topXPos();
     Q_INVOKABLE double topYPos();
     Q_INVOKABLE QString topContents();
