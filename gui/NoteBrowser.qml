@@ -5,12 +5,15 @@ FocusScope {
     id: root
     property alias notemodel: delegate.model
     clip: true
-    signal modelSelectionChanged(int newIndex)
-    property var mIndex: delegate.rootIndex
+    signal modelSelectionIndexChanged(int newIndex)
+    signal modelSelectionDepthChanged(int newDepth)
+    // These properties could eventually save themselves to disk, so as to have a non-default selection upon application start.
+    property var mSelectedIndex: 0
+    property var mSelectedDepth: 0
 
     VisualDataModel {
         id: delegate
-        rootIndex: modelIndex(0)
+        rootIndex: modelIndex(mSelectedDepth)
         delegate: Rectangle {
             id: drect
             height: 25
@@ -26,12 +29,17 @@ FocusScope {
         model: delegate
         currentIndex: 1
         highlightFollowsCurrentItem: true
+        currentIndex: mSelectedIndex
         MouseArea {
             id: focusarea
             anchors.fill: parent
             onClicked: {
-                list.currentIndex = list.indexAt(mouse.x, mouse.y)
-                modelSelectionChanged(list.currentIndex)
+                mSelectedIndex = list.indexAt(mouse.x, mouse.y)
+                modelSelectionChanged(mSelectedIndex)
+            }
+            onDoubleClicked: {
+                mSelectedDepth = mSelectedDepth + 1
+                modelSelectionDepthChanged(mSelectedDepth)
             }
         }
     }
