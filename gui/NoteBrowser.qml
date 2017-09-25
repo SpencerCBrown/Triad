@@ -42,8 +42,10 @@ FocusScope {
                 root.modelSelectionIndexChanged(mSelectedIndex)
             }
             onDoubleClicked: {
-                mSelectedDepth = mSelectedDepth + 1
-                root.modelSelectionDepthChanged(mSelectedDepth)
+                if (mSelectedDepth < 2) {
+                    mSelectedDepth = mSelectedDepth + 1
+                    root.modelSelectionDepthChanged(mSelectedDepth)
+                }
             }
         }
     }
