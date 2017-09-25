@@ -114,6 +114,40 @@ QVariant NoteModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+bool NoteModel::insertRows(int position, int count, const QModelIndex &index)
+{
+    Q_UNUSED(position)
+    Q_UNUSED(count)
+
+    if (!index.isValid()) {
+        return false;
+    }
+
+    beginInsertRows(index, rowCount(index) + 1, rowCount(index) + 1);
+    DomItem* parentItem = static_cast<DomItem*>(index.internalPointer());
+    QDomNode parentNode = parentItem->node();
+    QDomElement contentContainer = m_domDocument.createElement("ContentContainer");
+    QDomCDATASection cdataContent = m_domDocument.createCDATASection("");
+    contentContainer.appendChild(cdataContent);
+    parentNode.appendChild(contentContainer);
+    endInsertRows();
+    return true;
+}
+
+bool NoteModel::removeRows(int position, int count, const QModelIndex &index)
+{
+    Q_UNUSED(position)
+    Q_UNUSED(count)
+    if (!index.isValid()) {
+        return false;
+    }
+
+    beginRemoveRows(index, position, position + count - 1);
+    //TODO implement
+    endRemoveRows();
+    return true;
+}
+
 QVariant NoteModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     Q_UNUSED(section)
@@ -127,7 +161,6 @@ QModelIndex NoteModel::index(int row, int column, const QModelIndex &parent) con
     if (!hasIndex(row, column, parent)) {
         return QModelIndex();
     }
-
         DomItem *parentItem;
 
         if (!parent.isValid()) {
@@ -148,16 +181,15 @@ bool NoteModel::setData(const QModelIndex &index, const QVariant &value, int rol
         DomItem *item = static_cast<DomItem*>(index.parent().internalPointer());
         QDomNode node = item->node();
 
-        if (node.isElement()) {
-            QString currentContents = value.toString();
-            QDomCDATASection section = node.toElement().firstChild().toCDATASection();
-            QString oldContents = section.data();
-            if (oldContents != currentContents) {
-                section.setNodeValue(currentContents);
-            }
-        } else {
-            qDebug() << "Node was not element";
+        QString currentContents = value.toString();
+        QDomCDATASection section = node.toElement().firstChild().toCDATASection();
+        QString oldContents = section.data();
+        if (oldContents != currentContents) {
+            section.setNodeValue(currentContents);
         }
+    } else if (index.isValid() && role == NoteModelRoles::Title) {
+        //set title attribute of non-root node.
+        return true;
     }
     return false;
 }

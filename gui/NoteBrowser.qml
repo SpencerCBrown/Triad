@@ -6,6 +6,7 @@ FocusScope {
     property alias notemodel: delegate.model
     clip: true
     signal modelSelectionChanged(int newIndex)
+    property var treeDepth
 
     VisualDataModel {
         id: delegate

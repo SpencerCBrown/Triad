@@ -24,6 +24,10 @@ ApplicationWindow {
         height: parent.height
         width: parent.width - view.width
         nModel: notemodel
+//        Connections {
+//            target: view
+//            onModelSelectionChanged:
+//        }
     }
 
     NoteModel {

@@ -73,6 +73,8 @@ public:
     QModelIndex parent(const QModelIndex &child) const override;
     QHash<int, QByteArray> roleNames() const override;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
+    bool insertRows(int position, int count, const QModelIndex &index = QModelIndex()) override;
+    bool removeRows(int position, int count, const QModelIndex &index = QModelIndex()) override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
