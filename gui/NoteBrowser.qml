@@ -30,6 +30,11 @@ FocusScope {
         currentIndex: 1
         highlightFollowsCurrentItem: true
         currentIndex: mSelectedIndex
+        Component.onCompleted: {
+            modelSelectionDepthChanged(mSelectedDepth)
+            modelSelectionIndexChanged(mSelectedIndex)
+        }
+
         MouseArea {
             id: focusarea
             anchors.fill: parent
