@@ -13,6 +13,7 @@ Page {
     property int containerGenerationCounter: 0
     property var selectedContainer: 0
     property alias nModel: access.nModel
+    property alias storageif: access
 
     header: ToolBar {
         id: toolbar

@@ -24,10 +24,15 @@ ApplicationWindow {
         height: parent.height
         width: parent.width - view.width
         nModel: notemodel
-//        Connections {
-//            target: view
-//            onModelSelectionChanged:
-//        }
+        Connections {
+            target: view
+            onModelSelectionIndexChanged: {
+                notepage.storageif.parentIndex = newIndex
+            }
+            onModelSelectionDepthChanged: {
+                notepage.storageif.parentDepth = newDepth
+            }
+        }
     }
 
     NoteModel {

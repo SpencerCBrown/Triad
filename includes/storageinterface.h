@@ -24,6 +24,8 @@ public:
     ~StorageInterface();
     Q_PROPERTY(int childId READ getChildId WRITE setChildId)
     Q_PROPERTY(NoteModel* nModel MEMBER m_dataModel)
+    Q_PROPERTY(int parentIndex MEMBER m_modelParentIndex)
+    Q_PROPERTY(int parentDepth MEMBER m_modelParentDepth)
     Q_INVOKABLE double topXPos();
     Q_INVOKABLE double topYPos();
     Q_INVOKABLE QString topContents();
@@ -44,6 +46,8 @@ private:
     QList<QDomElement*> m_loadedElements;
     int m_childId;
     NoteModel* m_dataModel;
+    int m_modelParentDepth;
+    int m_modelParentIndex;
 
     void createDocument();
     void loadDocument();
