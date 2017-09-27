@@ -24,12 +24,13 @@ public:
     ~StorageInterface();
     Q_PROPERTY(int childId READ getChildId WRITE setChildId)
     Q_PROPERTY(NoteModel* nModel MEMBER m_dataModel)
-    Q_PROPERTY(int parentIndex MEMBER m_modelParentIndex)
+    Q_PROPERTY(int parentIndex READ getIndexForCurrentDepth WRITE setIndexForCurrentDepth)
     Q_PROPERTY(int parentDepth MEMBER m_modelParentDepth)
     Q_INVOKABLE double topXPos();
     Q_INVOKABLE double topYPos();
     Q_INVOKABLE QString topContents();
     Q_INVOKABLE void purgeElement(QVariant qdomelement);
+    Q_INVOKABLE void addContainer();
     Q_INVOKABLE void setContent(int index, QString contentsString);
     Q_INVOKABLE void setXPos(int index, double x_Pos);
     Q_INVOKABLE void setYPos(int index, double y_Pos);
@@ -47,14 +48,17 @@ private:
     int m_childId;
     NoteModel* m_dataModel;
     int m_modelParentDepth;
-    int m_modelParentIndex;
+    QVector<int> m_modelParentIndexByDepth;
 
     void createDocument();
     void loadDocument();
     void setChildId(int childId);
     int getChildId();
+    void setIndexForCurrentDepth(int index);
+    int getIndexForCurrentDepth();
     void setModel(NoteModel* model);
     NoteModel* getModel();
+    QModelIndex getCurrentModelIndex();
 };
 
 #endif // STORAGEINTERFACE_H

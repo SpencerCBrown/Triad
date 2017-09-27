@@ -6,7 +6,7 @@
 #include <QTextStream>
 #include <QModelIndex>
 
-StorageInterface::StorageInterface(QObject *parent) : QObject(parent)
+StorageInterface::StorageInterface(QObject *parent) : QObject(parent), m_modelParentIndexByDepth(3)
 {
     QFile file("mynotes.xml.trd");
     m_domDocument = new QDomDocument();
@@ -53,9 +53,29 @@ void StorageInterface::loadDocument()
     file.close();
 }
 
+QModelIndex StorageInterface::getCurrentModelIndex()
+{
+    QModelIndex mIndex = QModelIndex();//m_dataModel->index(m_modelParentIndex)
+    for (int i = 0; i < m_modelParentIndexByDepth.length(); ++i) {
+        mIndex = m_dataModel->index(m_modelParentIndexByDepth.at(i), 0, mIndex);
+    }
+    return mIndex;
+}
+
+void StorageInterface::addContainer()
+{
+
+}
+
 void StorageInterface::setContent(int index, QString contentsString)
 {
-    //TODO implement
+    QModelIndex parentNotepage = getCurrentModelIndex();
+    QModelIndex childContainer = m_dataModel->index(index, 0, parentNotepage);
+    if (!childContainer.isValid()) {
+        qDebug() << "invalid setcontent index";
+    } else {
+        m_dataModel->setData(childContainer, contentsString, NoteModel::NoteModelRoles::Content);
+    }
 }
 
 void StorageInterface::setXPos(int index, double x_Pos)
@@ -77,6 +97,16 @@ void StorageInterface::setChildId(int childId)
 int StorageInterface::getChildId()
 {
     return m_childId;
+}
+
+void StorageInterface::setIndexForCurrentDepth(int index)
+{
+    m_modelParentIndexByDepth.replace(m_modelParentDepth, index);
+}
+
+int StorageInterface::getIndexForCurrentDepth()
+{
+    return m_modelParentIndexByDepth.at(m_modelParentDepth);
 }
 
 double StorageInterface::topXPos()

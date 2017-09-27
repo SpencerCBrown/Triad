@@ -29,22 +29,22 @@ FocusScope {
         model: delegate
         highlightFollowsCurrentItem: true
         currentIndex: mSelectedIndex
-//        Component.onCompleted: {
-//            modelSelectionDepthChanged(mSelectedDepth)
-//            modelSelectionIndexChanged(mSelectedIndex)
-//        }
+        Component.onCompleted: {
+            modelSelectionDepthChanged(mSelectedDepth)
+            modelSelectionIndexChanged(mSelectedIndex)
+        }
 
         MouseArea {
             id: focusarea
             anchors.fill: parent
             onClicked: {
                 mSelectedIndex = list.indexAt(mouse.x, mouse.y)
-                root.modelSelectionIndexChanged(mSelectedIndex)
+                modelSelectionIndexChanged(mSelectedIndex)
             }
             onDoubleClicked: {
                 if (mSelectedDepth < 2) {
                     mSelectedDepth = mSelectedDepth + 1
-                    root.modelSelectionDepthChanged(mSelectedDepth)
+                    modelSelectionDepthChanged(mSelectedDepth)
                 }
             }
         }
