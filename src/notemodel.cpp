@@ -85,6 +85,8 @@ QHash<int, QByteArray> NoteModel::roleNames() const
     QHash<int, QByteArray> roles;
     roles[Title] = "title";
     roles[Content] = "content";
+    roles[XPosition] = "xPos";
+    roles[YPosition] = "yPos";
     return roles;
 }
 
@@ -187,8 +189,25 @@ bool NoteModel::setData(const QModelIndex &index, const QVariant &value, int rol
         if (oldContents != currentContents) {
             section.setNodeValue(currentContents);
         }
+        return true;
     } else if (index.isValid() && role == NoteModelRoles::Title) {
         //set title attribute of non-root node.
+        return true;
+    } else if (index.isValid() && role == NoteModelRoles::XPosition) {
+        DomItem *item = static_cast<DomItem*>(index.parent().internalPointer());
+        QDomNode node = item->node();
+        QDomElement element = node.toElement();
+
+        double xCoordinateValue = value.toDouble();
+        element.setAttribute("XPos", xCoordinateValue);
+        return true;
+    } else if (index.isValid() && role == NoteModelRoles::YPosition) {
+        DomItem *item = static_cast<DomItem*>(index.parent().internalPointer());
+        QDomNode node = item->node();
+        QDomElement element = node.toElement();
+
+        double yCoordinateValue = value.toDouble();
+        element.setAttribute("YPos", yCoordinateValue);
         return true;
     }
     return false;
