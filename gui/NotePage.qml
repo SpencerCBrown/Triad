@@ -78,6 +78,8 @@ Page {
                 contentContainer.containerContentChanged.connect(containerContentChanged);
                 contentContainer.containerXChanged.connect(containerXPosChanged);
                 contentContainer.containerYChanged.connect(containerYPosChanged);
+                containerXPosChanged(mouse.x)
+                containerYPosChanged(mouse.y)
                 containerFocusChanged(containerGenerationCounter);
                 containerGenerationCounter++;
             }
