@@ -125,22 +125,13 @@ StorageInterface::~StorageInterface()
 
 int StorageInterface::pageChildContainers()
 {
-    //TODO return number of children (contentContainers) in active NotePage
-    //temporarily hardcoded
-    QModelIndex rootItem = m_dataModel->index(0, 0);
-    if (rootItem.isValid()) {
-        QModelIndex notebook = m_dataModel->index(0, 0, rootItem);
-        if (notebook.isValid()) {
-            QModelIndex section = m_dataModel->index(0, 0, notebook);
-            if (section.isValid()) {
-                QModelIndex notepage = m_dataModel->index(0, 0, section);
-                if (notepage.isValid()) {
-                    return m_dataModel->rowCount(notepage);
-                }
-            }
-        }
+    QModelIndex parentNotepage = getCurrentModelIndex();
+    if (parentNotepage.isValid()) {
+        return m_dataModel->rowCount(parentNotepage);
+    } else {
+        qDebug() << "StorageInterface::pageChildContainers : \'notepage\' model index invalid.";
+        return -1;
     }
-    return -1;
 }
 
 void StorageInterface::setModel(NoteModel* model)
