@@ -64,7 +64,8 @@ QModelIndex StorageInterface::getCurrentModelIndex()
 
 void StorageInterface::addContainer()
 {
-
+    QModelIndex parentNotepage = getCurrentModelIndex();
+    m_dataModel->insertRows(0, 0, parentNotepage);
 }
 
 void StorageInterface::setContent(int index, QString contentsString)
@@ -80,12 +81,24 @@ void StorageInterface::setContent(int index, QString contentsString)
 
 void StorageInterface::setXPos(int index, double x_Pos)
 {
-    //TODO
+    QModelIndex parentNotepage = getCurrentModelIndex();
+    QModelIndex childContainer = m_dataModel->index(index, 0, parentNotepage);
+    if (!childContainer.isValid()) {
+        qDebug() << "Invalid setcontent index";
+    } else {
+        m_dataModel->setData(childContainer, x_Pos, NoteModel::NoteModelRoles::XPosition);
+    }
 }
 
 void StorageInterface::setYPos(int index, double y_Pos)
 {
-    //TODO
+    QModelIndex parentNotepage = getCurrentModelIndex();
+    QModelIndex childContainer = m_dataModel->index(index, 0, parentNotepage);
+    if (!childContainer.isValid()) {
+        qDebug() << "Invalid setcontent index";
+    } else {
+        m_dataModel->setData(childContainer, y_Pos, NoteModel::NoteModelRoles::YPosition);
+    }
 }
 
 void StorageInterface::setChildId(int childId)
