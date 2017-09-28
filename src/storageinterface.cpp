@@ -8,25 +8,6 @@
 
 StorageInterface::StorageInterface(QObject *parent) : QObject(parent), m_modelParentIndexByDepth(3)
 {
-    QFile file("mynotes.xml.trd");
-    m_domDocument = new QDomDocument();
-    if (file.exists()) {
-        loadDocument();
-    } else {
-        createDocument();
-    }
-}
-
-QVariant StorageInterface::createNode()
-{
-    QDomElement root = m_domDocument->firstChildElement();
-    QDomElement* element = new QDomElement(m_domDocument->createElement("ContentContainer"));
-    QDomCDATASection tempNode = m_domDocument->createCDATASection("");
-    element->appendChild(tempNode);
-    root.appendChild(*element);
-
-    QVariant test = QVariant::fromValue(element);
-    return test;
 }
 
 void StorageInterface::createDocument()
@@ -137,23 +118,9 @@ QString StorageInterface::topContents()
     return m_loadedElements.last()->firstChild().toCDATASection().data();
 }
 
-QVariant StorageInterface::popElement()
-{
-    if (m_loadedElements.isEmpty()) {
-        qDebug() << "Severe logic error";
-        return QVariant();
-    }
-    return QVariant::fromValue(m_loadedElements.takeLast());
-}
-
 StorageInterface::~StorageInterface()
 {
     delete m_domDocument;
-}
-
-void StorageInterface::finishLoading()
-{
-    emit containersLoaded(m_loadedElements.length());
 }
 
 int StorageInterface::pageChildContainers()
