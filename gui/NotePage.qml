@@ -69,7 +69,7 @@ Page {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, access.createNode(), containerGenerationCounter);
+                var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, containerGenerationCounter);
                 if (mouse.source !== Qt.MouseEventNotSynthesized) {
                     contentContainer.createdByTouch = true;
                 }
