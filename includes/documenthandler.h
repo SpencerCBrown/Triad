@@ -27,7 +27,11 @@ public:
     void setXPos(double xpos);
     double getYPos();
     void setYPos(double ypos);
+    QString getDocumentHtml();
 signals:
+    void xPositionChanged(double x_Pos);
+    void yPositionChanged(double y_Pos);
+    void contentsChanged(QString contentsString);
 public slots:
     void change();
 private:

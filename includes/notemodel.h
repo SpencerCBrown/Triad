@@ -61,6 +61,7 @@ class QDomDocument;
 
 class NoteModel : public QAbstractItemModel
 {
+
 public:
     explicit NoteModel(QObject* parent = nullptr);
     ~NoteModel();
@@ -71,17 +72,26 @@ public:
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
     QModelIndex parent(const QModelIndex &child) const override;
     QHash<int, QByteArray> roleNames() const override;
+    bool setData(const QModelIndex &index, const QVariant &value, int role);
+    bool insertRows(int position, int count, const QModelIndex &index = QModelIndex()) override;
+    bool removeRows(int position, int count, const QModelIndex &index = QModelIndex()) override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
+    void saveToDisk();
+
     enum NoteModelRoles {
         Title = Qt::UserRole,
-        Content
+        Content,
+        XPosition,
+        YPosition
     };
 
 private:
     QDomDocument m_domDocument;
     DomItem* m_rootItem;
 };
+
+Q_DECLARE_METATYPE(NoteModel*)
 
 #endif // NOTEMODEL_H

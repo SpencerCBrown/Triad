@@ -13,13 +13,18 @@ FocusScope {
     property alias xmlNode: documentInstance.node
     property alias content: textArea
     property bool isImplicitlySized: true
-    property bool containerIsFocused;
+    property bool containerIsFocused
     property bool createdByTouch: false
     property string containerID;
     property int textPadding: 9
+    property alias textdoc: documentInstance.textDocument
+    property alias di: documentInstance
 
     signal containerFocused(string ID);
     signal containerDeleted(string ID);
+    signal containerContentChanged(string ID, string contents);
+    signal containerXChanged(string ID, double xposition);
+    signal containerYChanged(string ID, double yposition);
 
     Drag.active: dragArea.drag.active
     Drag.hotSpot.x: 10
@@ -30,6 +35,9 @@ FocusScope {
         textDocument: textArea.textDocument
         xpos: rootScope.x
         ypos: rootScope.y
+        onContentsChanged: containerContentChanged(containerID, contentsString)
+        onXPositionChanged: containerXChanged(containerID, x_Pos)
+        onYPositionChanged: containerYChanged(containerID, y_Pos)
     }
 
     Rectangle {

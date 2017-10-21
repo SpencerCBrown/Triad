@@ -8,7 +8,7 @@ function createTextEdit(event, parent, nodeInstance, containerID) {
 
         if (parent.childAt(xpos, ypos) === inputArea) {
             var component = Qt.createComponent("contentcontainer.qml")
-            var componentInstance = component.createObject(parent, {"x": xpos, "y": ypos, "focus": true, "xmlNode": nodeInstance, "containerID": containerID})
+            var componentInstance = component.createObject(parent, {"x": xpos, "y": ypos, "focus": true, "containerID": containerID})
             return componentInstance
         }
     }

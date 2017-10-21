@@ -4,38 +4,10 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
+#include <QModelIndex>
 
-StorageInterface::StorageInterface(QObject *parent) : QObject(parent)
+StorageInterface::StorageInterface(QObject *parent) : QObject(parent), m_modelParentIndexByDepth(3)
 {
-    QFile file("mynotes.xml.trd");
-    m_domDocument = new QDomDocument();
-    if (file.exists()) {
-        loadDocument();
-    } else {
-        createDocument();
-    }
-}
-
-void StorageInterface::saveDoc()
-{
-    QFile file("mynotes.xml.trd");
-    QString xml = m_domDocument->toString();
-    file.open(QIODevice::ReadWrite | QIODevice::Text);
-    QTextStream stream(&file);
-    stream << xml;
-    file.close();
-}
-
-QVariant StorageInterface::createNode()
-{
-    QDomElement root = m_domDocument->firstChildElement();
-    QDomElement* element = new QDomElement(m_domDocument->createElement("ContentContainer"));
-    QDomCDATASection tempNode = m_domDocument->createCDATASection("");
-    element->appendChild(tempNode);
-    root.appendChild(*element);
-
-    QVariant test = QVariant::fromValue(element);
-    return test;
 }
 
 void StorageInterface::createDocument()
@@ -62,6 +34,75 @@ void StorageInterface::loadDocument()
     file.close();
 }
 
+QModelIndex StorageInterface::getCurrentModelIndex()
+{
+    QModelIndex mIndex = QModelIndex();//m_dataModel->index(m_modelParentIndex)
+    for (int i = 0; i < m_modelParentIndexByDepth.length(); ++i) {
+        mIndex = m_dataModel->index(m_modelParentIndexByDepth.at(i), 0, mIndex);
+    }
+    return mIndex;
+}
+
+void StorageInterface::addContainer()
+{
+    QModelIndex parentNotepage = getCurrentModelIndex();
+    m_dataModel->insertRows(0, 0, parentNotepage);
+}
+
+void StorageInterface::setContent(int index, QString contentsString)
+{
+    QModelIndex parentNotepage = getCurrentModelIndex();
+    QModelIndex childContainer = m_dataModel->index(index, 0, parentNotepage);
+    if (!childContainer.isValid()) {
+        qDebug() << "invalid setcontent index";
+    } else {
+        m_dataModel->setData(childContainer, contentsString, NoteModel::NoteModelRoles::Content);
+    }
+}
+
+void StorageInterface::setXPos(int index, double x_Pos)
+{
+    QModelIndex parentNotepage = getCurrentModelIndex();
+    QModelIndex childContainer = m_dataModel->index(index, 0, parentNotepage);
+    if (!childContainer.isValid()) {
+        qDebug() << "Invalid setcontent index";
+    } else {
+        m_dataModel->setData(childContainer, x_Pos, NoteModel::NoteModelRoles::XPosition);
+    }
+}
+
+void StorageInterface::setYPos(int index, double y_Pos)
+{
+    QModelIndex parentNotepage = getCurrentModelIndex();
+    QModelIndex childContainer = m_dataModel->index(index, 0, parentNotepage);
+    if (!childContainer.isValid()) {
+        qDebug() << "Invalid setcontent index";
+    } else {
+        m_dataModel->setData(childContainer, y_Pos, NoteModel::NoteModelRoles::YPosition);
+    }
+}
+
+void StorageInterface::setChildId(int childId)
+{
+    m_childId = childId;
+    emit idChanged(m_childId);
+}
+
+int StorageInterface::getChildId()
+{
+    return m_childId;
+}
+
+void StorageInterface::setIndexForCurrentDepth(int index)
+{
+    m_modelParentIndexByDepth.replace(m_modelParentDepth, index);
+}
+
+int StorageInterface::getIndexForCurrentDepth()
+{
+    return m_modelParentIndexByDepth.at(m_modelParentDepth);
+}
+
 double StorageInterface::topXPos()
 {
     return m_loadedElements.last()->attribute("XPos").toDouble();
@@ -77,23 +118,31 @@ QString StorageInterface::topContents()
     return m_loadedElements.last()->firstChild().toCDATASection().data();
 }
 
-QVariant StorageInterface::popElement()
-{
-    if (m_loadedElements.isEmpty()) {
-        qDebug() << "Severe logic error";
-        return QVariant();
-    }
-    return QVariant::fromValue(m_loadedElements.takeLast());
-}
-
 StorageInterface::~StorageInterface()
 {
     delete m_domDocument;
 }
 
-void StorageInterface::finishLoading()
+int StorageInterface::pageChildContainers()
 {
-    emit containersLoaded(m_loadedElements.length());
+    QModelIndex parentNotepage = getCurrentModelIndex();
+    if (parentNotepage.isValid()) {
+        return m_dataModel->rowCount(parentNotepage);
+    } else {
+        qDebug() << "StorageInterface::pageChildContainers : \'notepage\' model index invalid.";
+        return -1;
+    }
+}
+
+void StorageInterface::setModel(NoteModel* model)
+{
+    m_dataModel = model;
+}
+
+NoteModel* StorageInterface::getModel()
+{
+    //return QVariant::fromValue(m_dataModel);
+    return m_dataModel;
 }
 
 void StorageInterface::purgeElement(QVariant qdomelement)
@@ -103,5 +152,4 @@ void StorageInterface::purgeElement(QVariant qdomelement)
     }
     QDomElement* tempElement = qvariant_cast<QDomElement*>(qdomelement);
     m_domDocument->firstChildElement().removeChild(*tempElement);
-    //delete tempElement;
 }

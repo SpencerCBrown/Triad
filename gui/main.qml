@@ -23,14 +23,19 @@ ApplicationWindow {
         anchors.right: parent.right
         height: parent.height
         width: parent.width - view.width
+        nModel: notemodel
+        Connections {
+            target: view
+            onModelSelectionIndexChanged: {
+                notepage.storageif.parentIndex = newIndex
+            }
+            onModelSelectionDepthChanged: {
+                notepage.storageif.parentDepth = newDepth
+            }
+        }
     }
 
     NoteModel {
         id: notemodel
-    }
-
-
-    onClosing: {
-        notepage.saveDoc();
     }
 }

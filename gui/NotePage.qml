@@ -12,6 +12,8 @@ Page {
     property string currentContainerID
     property int containerGenerationCounter: 0
     property var selectedContainer: 0
+    property alias nModel: access.nModel
+    property alias storageif: access
 
     header: ToolBar {
         id: toolbar
@@ -67,12 +69,17 @@ Page {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, access.createNode(), containerGenerationCounter);
+                var contentContainer = TEFactory.createTextEdit(mouse, centralSurface.contentItem, containerGenerationCounter);
                 if (mouse.source !== Qt.MouseEventNotSynthesized) {
                     contentContainer.createdByTouch = true;
                 }
                 contentContainer.containerFocused.connect(containerFocusChanged);
                 contentContainer.containerDeleted.connect(containerDeleted);
+                contentContainer.containerContentChanged.connect(containerContentChanged);
+                contentContainer.containerXChanged.connect(containerXPosChanged);
+                contentContainer.containerYChanged.connect(containerYPosChanged);
+                containerXPosChanged(mouse.x)
+                containerYPosChanged(mouse.y)
                 containerFocusChanged(containerGenerationCounter);
                 containerGenerationCounter++;
             }
@@ -86,16 +93,39 @@ Page {
 
     StorageInterface {
         id: access
-        Component.onCompleted: finishLoading();
+        Component.onCompleted:
+        {
+            var count = pageChildContainers()
+            print(count)
+//            while (count++ > 0) {
+//                make containers
+//            }
+        }
+
         onContainersLoaded: {
             while (numberOfLoadedElements > 0) {
                 var contentContainer = TEFactory.loadTextEdit(centralSurface.contentItem, topXPos(), topYPos(), topContents(), popElement(), containerGenerationCounter);
                 contentContainer.containerFocused.connect(containerFocusChanged);
                 contentContainer.containerDeleted.connect(containerDeleted);
+                contentContainer.containerContentChanged.connect(containerContentChanged);
+                contentContainer.containerXChanged.connect(containerXPosChanged);
+                contentContainer.containerYChanged.connect(containerYPosChanged);
                 containerGenerationCounter++;
                 numberOfLoadedElements--;
             }
         }
+    }
+
+    function containerContentChanged(containerID, contentsString) {
+        access.setContent(containerID, contentsString)
+    }
+
+    function containerXPosChanged(containerID, x_Pos) {
+        access.setXPos(containerID, x_Pos)
+    }
+
+    function containerYPosChanged(containerID, y_Pos) {
+        access.setYPos(containerID, y_Pos)
     }
 
     function containerFocusChanged(containerID) {
@@ -120,9 +150,5 @@ Page {
                 list[i].destroy();
             }
         }
-    }
-
-    function saveDoc() {
-        access.saveDoc();
     }
 }
