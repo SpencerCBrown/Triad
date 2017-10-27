@@ -1,4 +1,5 @@
-# Triad
+I have decided after much consideration to discontinue my work on Triad.  In building it I have learned a lot, even though it didn't get anywhere near completion.  I started Triad because I could not find anything like it (for linux, touch-compatible, onenote-like).  I am going to try to contribute to the development of https://github.com/lordadamson/Journal, which I hope anyone that found an interest in my project will check out.
+~~# Triad
 Robust and pleasant cross-platform note taking application.
 
 Triad is split into two parts, a frontend UI written in QML/Javascript, and a backend for data management written in Qt/C++.
@@ -12,4 +13,4 @@ Nothing like this exists on Linux, and considerations for that platform will dri
 Triad should be able to sync with WebDav instances, other cloud storage providers like Dropbox, Google Drive, etc.
 Syncing with OneDrive and iCloud should also be considered.
 
-A functioning Android build is a priority.
+A functioning Android build is a priority.~~
